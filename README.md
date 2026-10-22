@@ -3,14 +3,13 @@
 # Archit Pasayat
 
 **B.Tech in Electrical Engineering · IIT Bhilai · 2026 – 2030**
-Semiconductor physics · Quantum mechanics · Astrophysics
 
 ![HTML](https://img.shields.io/badge/HTML-000000?style=flat-square&logo=html5&logoColor=white)
 ![CSS](https://img.shields.io/badge/CSS-7a0f2e?style=flat-square&logo=css3&logoColor=white)
 ![JS](https://img.shields.io/badge/JS-ffffff?style=flat-square&logo=javascript&logoColor=black)
 ![License](https://img.shields.io/badge/license-MIT-d3cdd0?style=flat-square)
 
-[Live site](https://yourname.github.io/portfolio) · [LinkedIn](https://linkedin.com/in/yourname) · [GitHub](https://github.com/yourname)
+[Live site](https://checkcheck28.github.io/portfolio/) · [LinkedIn](https://www.linkedin.com/in/archit-pasayat857/) · [GitHub](https://github.com/CheckCheck28)
 
 </div>
 
