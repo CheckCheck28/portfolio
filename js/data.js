@@ -26,8 +26,8 @@ var SITE = {
   formspree: '',                               // optional, e.g. 'https://formspree.io/f/xxxxxxx'. Empty = the form opens the visitor's mail app
   links: [                                      // social buttons shown in the hero and the contact section: ['Label', 'URL']
     ['LinkedIn','https://www.linkedin.com/in/archit-pasayat857'],
-    ['GitHub','https://github.com/yourname'],
-    ['Codeforces','https://codeforces.com/profile/yourname']
+    ['GitHub','https://github.com/CheckCheck28'],
+    ['Codeforces','https://codeforces.com/profile/Blaze_Dragon123']
   ]
 };
 
