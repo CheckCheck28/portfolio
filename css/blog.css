@@ -16,7 +16,7 @@
 
 /* ===== 1. THEME COLOURS ===== */
 html[data-theme="dark"]{
-  --serif:'Bodoni Moda','Cormorant Garamond',Georgia,serif;--sans:'Jost','Helvetica Neue',Arial,sans-serif;
+  --serif:'Libre Baskerville',Georgia,serif;--sans:'Josefin Sans','Helvetica Neue',Arial,sans-serif;
   --bg:#07050a;--fg:#ffffff;--mut:#b9b3b6;--card:rgba(255,255,255,.05);--line:rgba(255,255,255,.13);
   --pri:var(--p1);--on:var(--p1-on);--acc:#d3cdd0;--code:#120a10;--glow:rgba(var(--p2-rgb),.55);color-scheme:dark}
 html[data-theme="light"]{

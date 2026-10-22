@@ -10,7 +10,7 @@
      5. Section layout
      6. Hero
 
-   Fonts: --serif (Bodoni Moda) for headings, --sans (Jost) for text. Change them in section 1.
+   Fonts: --serif (Libre Baskerville) for headings, --sans (Josefin Sans) for text. Change them in section 1.
    Accent colours (--p1 ... --p4) come from css/palettes.css, so the corner switcher can swap them.
    ===================================================================== */
 
@@ -27,8 +27,8 @@
   padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)} /* keep clear of phone notches */
 
 body{ /* BLACK (default) */
-  --serif:'Bodoni Moda','Cormorant Garamond',Georgia,serif;
-  --sans:'Jost','Helvetica Neue',Arial,sans-serif;
+  --serif:'Libre Baskerville',Georgia,serif;
+  --sans:'Josefin Sans','Helvetica Neue',Arial,sans-serif;
   --bg:#07050a;--fg:#ffffff;--mut:#b9b3b6;--card:rgba(255,255,255,.05);--line:rgba(255,255,255,.13);
   --pri:var(--p1);--on:var(--p1-on);--acc:#d3cdd0;--acc-rgb:211,205,208;--nn:var(--p1-rgb)}
 body[data-t="burg"]{ /* DEEP COLOUR (burgundy by default) */
@@ -123,7 +123,7 @@ section{min-height:100svh;scroll-snap-align:start;padding:100px 7vw 60px;display
 @media(max-width:860px){.hero{grid-template-columns:1fr}}         /* phones: stack */
 .hero h1{font-size:clamp(42px,7vw,88px);line-height:1.05;margin:8px 0}
 .hero h1 span{color:var(--pri);font-style:italic;transition:color .8s}
-.type{color:var(--acc);font:italic 500 27px 'Cormorant Garamond',var(--serif);min-height:38px;margin-bottom:12px}
+.type{color:var(--acc);font:400 27px 'Cedarville Cursive',cursive;min-height:38px;margin-bottom:12px}
 .type::after{content:"|";animation:bl 1s steps(1) infinite}      /* blinking cursor after the typed text */
 @keyframes bl{50%{opacity:0}}
 .row{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:24px}
