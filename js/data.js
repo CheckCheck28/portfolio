@@ -118,7 +118,9 @@ var D = {
   /* EDUCATION section: degrees and schooling */
   edu: [
     { t:'B.Tech Electrical Engineering', s:'IIT Bhilai · 2026 – 2030', p:'Lorem ipsum dolor sit amet.', m:L, tags:['Signals','Devices','Power systems'],
-      d:[['Institution','IIT Bhilai'],['Duration','2026 – 2030'],['Status','In progress']], href:'#', hl:'College' },
+      d:[['Institution','IIT Bhilai'],['Duration','2026 – 2030'],['Status','In progress']], href:'#', hl:'University' },
+    { t:'B.Tech Electrical Engineering', s:'NIT Durgapur · 2025 – 2026', p:'Lorem ipsum dolor sit amet.', m:L, tags:['Signals','Devices','Power systems'],
+      d:[['Institution','NIT Durgapur'],['Duration','2025 – 2026'],['Status','Dropped Out']], href:'#', hl:'University' },
     { t:'Class XII (Science)', s:'School Name · 2026', p:'Physics, Chemistry, Mathematics.', m:L, tags:['PCM','Board exam'],
       d:[['Institution','School Name'],['Duration','2024 – 2026'],['Score','9X%']], href:'#', hl:'School' },
     { t:'Class X', s:'School Name · 2024', p:'Lorem ipsum dolor sit amet.', m:L, tags:['Board exam','Foundations'],
