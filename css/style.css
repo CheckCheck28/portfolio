@@ -1,0 +1,235 @@
+/* =====================================================================
+   style.css — the design of the main page (index.html)
+
+   Contents
+     1. Theme colours            7. About
+     2. Base                     8. Cards and grid
+     3. Loader                   9. Expanded card + corner image
+     4. Navigation, buttons,    10. Contact form + scroll reveal
+        scroll hint             11. Finishing touches + page fade
+     5. Section layout
+     6. Hero
+
+   Fonts: --serif (Bodoni Moda) for headings, --sans (Jost) for text. Change them in section 1.
+   Accent colours (--p1 ... --p4) come from css/palettes.css, so the corner switcher can swap them.
+   ===================================================================== */
+
+
+/* ===== 1. THEME COLOURS =====
+   Every colour on the page comes from these variables. script.js sets <body data-t="...">
+   as you scroll and the matching block below takes over; the background fades because
+   body has a transition.
+     --bg    background           --fg     main text          --mut    muted text
+     --card  card fill            --line   borders            --pri    main accent (buttons, headings)
+     --on    text on top of --pri --acc    small labels       --acc-rgb / --nn   the same colours as "r,g,b" for glows and the canvas */
+:root{
+  color-scheme:dark;box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)} /* keep clear of phone notches */
+
+body{ /* BLACK (default) */
+  --serif:'Bodoni Moda','Cormorant Garamond',Georgia,serif;
+  --sans:'Jost','Helvetica Neue',Arial,sans-serif;
+  --bg:#07050a;--fg:#ffffff;--mut:#b9b3b6;--card:rgba(255,255,255,.05);--line:rgba(255,255,255,.13);
+  --pri:var(--p1);--on:var(--p1-on);--acc:#d3cdd0;--acc-rgb:211,205,208;--nn:var(--p1-rgb)}
+body[data-t="burg"]{ /* DEEP COLOUR (burgundy by default) */
+  --bg:var(--p2);--fg:#ffffff;--mut:#ebd8de;--card:rgba(0,0,0,.25);--line:rgba(255,255,255,.22);
+  --pri:#ffffff;--on:var(--p2);--acc:#e6dfe2;--acc-rgb:230,223,226;--nn:255,255,255}
+body[data-t="white"]{ /* WHITE */
+  --bg:#faf8f9;--fg:#1a1215;--mut:#5f565b;--card:#ffffff;--line:rgba(var(--p3-rgb),.16);
+  --pri:var(--p3);--on:#ffffff;--acc:#5f565b;--acc-rgb:95,86,91;--nn:var(--p3-rgb)}
+body[data-t="gray"]{ /* LIGHT GRAY */
+  --bg:#d2cfd1;--fg:#140d10;--mut:#4d4448;--card:rgba(255,255,255,.55);--line:rgba(20,13,16,.18);
+  --pri:var(--p4);--on:#ffffff;--acc:var(--p4);--acc-rgb:var(--p4-rgb);--nn:20,13,16}
+
+
+/* ===== 2. BASE ===== */
+*{box-sizing:border-box;margin:0}
+html{
+  scroll-snap-type:y mandatory;   /* "latching": every scroll snaps to the next section */
+  scroll-behavior:smooth;
+  scrollbar-width:none;           /* hide the page scrollbar (Firefox) ... */
+  background:#07050a}             /* ... and show black behind the page while it fades between pages */
+html::-webkit-scrollbar{display:none}   /* ... and in Chrome / Safari / Edge */
+*{scrollbar-width:none}*::-webkit-scrollbar{display:none}   /* every other scrollable box too (expanded cards); scrolling still works */
+body{
+  background:var(--bg);color:var(--fg);
+  font:300 15px/1.75 var(--sans);
+  -webkit-font-smoothing:antialiased;
+  transition:background .8s,color .8s;overflow-x:hidden}
+h1,h2,h3{font-family:var(--serif);font-weight:500}   /* headings use the high-contrast serif */
+a{color:inherit;text-decoration:none}
+.tag{color:var(--acc);letter-spacing:.38em;font-size:11px;font-weight:500;text-transform:uppercase;transition:color .8s} /* small label above a heading */
+h2{font-size:clamp(34px,5vw,58px);line-height:1.1;margin:6px 0 10px}
+h2 em{color:var(--pri);transition:color .8s}                    /* the coloured word in each heading */
+.sub{color:var(--mut);max-width:540px;margin-bottom:34px}        /* grey paragraph under a heading */
+#stars{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.55}  /* the star-network canvas (drawn by script.js) */
+
+/* Visitors who prefer less motion get no animations or smooth scrolling */
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+
+
+/* ===== 3. LOADER ===== */
+#loader{position:fixed;inset:0;background:#000;z-index:99;display:grid;place-items:center;color:#fff;transition:transform .9s cubic-bezier(.77,0,.18,1)}
+#loader.done{transform:translateY(-100%)}                        /* slides up and away when loading ends */
+.ring{position:absolute;width:130px;height:130px;border-radius:50%;border:2px solid #333;border-top-color:var(--p1);animation:sp 1s linear infinite}
+.ring.b{width:96px;height:96px;border-top-color:#d3cdd0;animation-direction:reverse;animation-duration:1.5s} /* inner ring spins the other way */
+@keyframes sp{to{transform:rotate(360deg)}}
+#lt{position:absolute;bottom:18vh;color:#b9b3b6;letter-spacing:.4em;font-size:11px}
+
+
+/* ===== 4. NAVIGATION, BUTTONS, SCROLL HINT ===== */
+/* Top bar: a wide pill. space-between pins the name to the left and the links to the right;
+   "gap" keeps a minimum space between them on narrower screens. */
+nav{
+  position:fixed;top:calc(14px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);z-index:50;
+  width:min(1120px,94vw);display:flex;justify-content:space-between;align-items:center;gap:48px;
+  padding:8px 10px 8px 28px;border-radius:99px;
+  background:var(--card);backdrop-filter:blur(16px);border:1px solid var(--line);transition:.8s}
+nav .brand{font:italic 500 22px var(--serif);letter-spacing:.03em;color:var(--fg);white-space:nowrap}  /* your name */
+nav .links{display:flex;align-items:center;gap:6px}
+nav a.l{padding:6px 13px;border-radius:99px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--mut);transition:.3s}
+nav a.l:hover{color:var(--fg);background:var(--line)}
+@media(max-width:760px){nav a.l{display:none}nav{gap:16px;padding-left:20px}}   /* phones: keep only the name and the button */
+
+.btn{
+  display:inline-block;padding:11px 24px;border-radius:99px;border:0;cursor:pointer;
+  background:var(--pri);color:var(--on);
+  font:500 11.5px var(--sans);letter-spacing:.18em;text-transform:uppercase;
+  transition:transform .3s,box-shadow .3s,background .8s,color .8s}
+.btn:hover{transform:translateY(-3px) scale(1.04);box-shadow:0 8px 30px rgba(var(--nn),.35)}
+.btn.o{background:none;color:var(--fg);border:1px solid var(--line)}   /* outlined variant */
+
+/* "Scroll down" hint: fixed at the bottom centre, see-through, bobbing slowly.
+   On the last section it becomes "Back to top" (script.js adds .up). */
+.scroll{
+  position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:40;
+  display:flex;flex-direction:column;align-items:center;gap:4px;
+  background:none;border:0;cursor:pointer;color:var(--fg);
+  font:400 10.5px var(--sans);letter-spacing:.4em;text-transform:uppercase;
+  opacity:.45;transition:opacity .6s;animation:bob 2.8s ease-in-out infinite}
+.scroll:hover{opacity:.85}
+.scroll .chev{width:10px;height:10px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(45deg)} /* small arrow drawn with borders */
+.scroll.up .chev{transform:rotate(225deg);margin-top:6px}        /* points up on the last section */
+@keyframes bob{50%{transform:translateX(-50%) translateY(10px)}}
+
+
+/* ===== 5. SECTION LAYOUT =====
+   Every section is at least one screen tall and is a snap point; taller sections scroll normally. */
+section{min-height:100svh;scroll-snap-align:start;padding:100px 7vw 60px;display:flex;flex-direction:column;justify-content:center;position:relative;z-index:2}
+
+
+/* ===== 6. HERO ===== */
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:36px;align-items:center}
+@media(max-width:860px){.hero{grid-template-columns:1fr}}         /* phones: stack */
+.hero h1{font-size:clamp(42px,7vw,88px);line-height:1.05;margin:8px 0}
+.hero h1 span{color:var(--pri);font-style:italic;transition:color .8s}
+.type{color:var(--acc);font:italic 500 27px 'Cormorant Garamond',var(--serif);min-height:38px;margin-bottom:12px}
+.type::after{content:"|";animation:bl 1s steps(1) infinite}      /* blinking cursor after the typed text */
+@keyframes bl{50%{opacity:0}}
+.row{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:24px}
+.soc{padding:9px 16px;border-radius:99px;border:1px solid var(--line);font-size:12px;background:none;color:inherit;cursor:pointer;transition:.3s} /* social pill buttons */
+.soc:hover{border-color:var(--acc);color:var(--acc);transform:translateY(-3px)}
+/* Hero card with the moving wave-packet */
+.wave canvas{width:100%;height:170px;display:block;margin:14px 0 8px}
+.dotsr i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;background:var(--pri)}   /* the three "window" dots */
+.dotsr i:nth-child(2){background:var(--acc)}.dotsr i:nth-child(3){background:var(--mut)}
+.ro{display:flex;flex-wrap:wrap;gap:6px 18px;font:11px ui-monospace,Menlo,Consolas,monospace;color:var(--mut)}  /* formula readouts */
+
+
+/* ===== 7. ABOUT ===== */
+.about{display:grid;grid-template-columns:.6fr 1.4fr;gap:60px;align-items:center}
+@media(max-width:860px){.about{grid-template-columns:1fr}.photo-wrap{max-width:260px}}
+/* Photo: a clean rounded box with an offset outline behind it (the outline slides closer on hover) */
+.photo-wrap{position:relative;max-width:380px}
+.photo-wrap::before{content:"";position:absolute;inset:0;transform:translate(16px,16px);border:1px solid var(--acc);border-radius:14px;opacity:.55;transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.photo-wrap:hover::before{transform:translate(8px,8px)}
+.photo{
+  aspect-ratio:4/5;position:relative;overflow:hidden;border-radius:14px;border:1px solid var(--line);
+  background:linear-gradient(160deg,var(--card),transparent);
+  display:grid;place-items:center;font:italic 500 64px var(--serif);color:var(--acc)}   /* initials show until a photo exists */
+.photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}          /* the real photo covers the initials */
+.facts{display:flex;gap:30px;flex-wrap:wrap}
+.facts b{display:block;font:500 24px var(--serif);color:var(--acc)}
+.facts small{color:var(--mut);font-size:11px}
+
+
+/* ===== 8. CARDS AND GRID ===== */
+.grid{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}   /* as many columns as fit */
+.grid:not(.all) .card.extra{display:none}                        /* cards beyond SITE.limit stay hidden until "Show all" */
+.showmore{align-self:center;margin-top:26px}
+.card{
+  position:relative;overflow:hidden;padding:24px;border-radius:20px;
+  background:var(--card);border:1px solid var(--line);backdrop-filter:blur(8px);
+  transition:border-color .3s,box-shadow .3s,background .8s}
+.card[data-x]{cursor:pointer}                                    /* data-x marks a card that can be expanded */
+.card[data-x]:hover,.card[data-x]:focus-visible{border-color:var(--acc);box-shadow:0 0 36px rgba(var(--acc-rgb),.2)}
+.card[data-x]::after{content:"↗ expand";position:absolute;right:18px;bottom:14px;font-size:10px;color:var(--acc);opacity:0;transition:.3s}
+.card[data-x]:hover::after{opacity:1}                            /* the "expand" hint appears on hover */
+.card h3{font-size:25px;line-height:1.2;margin-bottom:4px}
+.card .s,.card h3{transition:padding-right .5s,font-size .5s,color .8s}   /* these resize smoothly when a card expands */
+.card .s{color:var(--acc);font-size:12px;margin-bottom:8px}      /* subtitle line */
+.card p{color:var(--mut);font-size:13px}
+.chip{display:inline-block;padding:2px 13px;margin:10px 6px 0 0;border-radius:99px;border:1px solid var(--line);font-size:11px;letter-spacing:.08em} /* tag chips */
+.more,.corner{display:none}                                      /* details and corner buttons exist only in the expanded copy */
+
+
+/* ===== 9. EXPANDED CARD + CORNER IMAGE =====
+   script.js clones the clicked card, fixes it above the page, and animates it to the centre. */
+.ov{position:fixed;inset:0;z-index:80;background:rgba(0,0,0,0);backdrop-filter:blur(0);transition:.4s}   /* dark backdrop */
+.ov.on{background:rgba(0,0,0,.6);backdrop-filter:blur(8px)}
+.card.x{
+  position:fixed;margin:0;max-height:86vh;overflow:auto;cursor:default;
+  background:var(--bg);box-shadow:0 30px 90px rgba(0,0,0,.5);
+  transition:left .5s cubic-bezier(.2,.8,.2,1),top .5s cubic-bezier(.2,.8,.2,1),width .5s cubic-bezier(.2,.8,.2,1),height .5s cubic-bezier(.2,.8,.2,1)} /* position and size animate */
+.card.x::after{display:none}
+.card.x .more{display:block;margin-top:14px;animation:fi .6s .25s both}   /* the details fade in */
+@keyframes fi{from{opacity:0;transform:translateY(12px)}}
+.card.x:not(.closing) h3{font-size:34px}                          /* bigger title when open */
+.card.x:not(.closing) .s,.card.x:not(.closing) h3{padding-right:130px}   /* leave room for the corner buttons */
+.card.x.closing .more,.card.x.closing .corner{opacity:0;animation:none;transition:opacity .18s}   /* on close the details fade out first */
+.card.x .corner{display:flex;align-items:center;gap:8px;position:absolute;top:16px;right:16px;z-index:2}   /* link + close button */
+.lk{padding:7px 15px;border-radius:99px;background:var(--pri);color:var(--on);font-size:10.5px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;transition:.3s}
+.lk:hover{transform:translateY(-2px)}
+.xb{width:30px;height:30px;border-radius:50%;border:1px solid var(--line);background:var(--bg);color:var(--fg);font-size:14px;cursor:pointer}   /* the × button */
+/* Detail rows: identical on every card (label on the left, text on the right) */
+.more>p{margin-bottom:6px}
+.dd{display:grid;grid-template-columns:140px 1fr;gap:14px;padding:11px 0;border-top:1px solid var(--line)}
+.dd b{padding-top:2px;color:var(--acc);font-size:10.5px;font-weight:500;letter-spacing:.22em;text-transform:uppercase}
+.dd span{color:var(--fg);font-size:13px}
+@media(max-width:520px){.dd{grid-template-columns:1fr;gap:2px}}   /* phones: label above the text */
+
+/* Corner image: a semi-transparent picture that slides in at the bottom-right while a card is open.
+   Shown exactly as it is (no border, no tint, original proportions). It exists only if the card has an
+   img in data.js. script.js adds / removes .show to play the slide-in and slide-out. */
+.pic{
+  position:fixed;right:24px;bottom:24px;width:min(360px,42vw);border-radius:12px;overflow:hidden;pointer-events:none;
+  opacity:0;transform:translate(46px,46px) scale(.94);
+  transition:opacity .6s ease,transform .7s cubic-bezier(.2,.8,.2,1)}   /* hidden / leaving state */
+.pic.show{opacity:.7;transform:none;transition-delay:.15s}                /* visible state */
+.pic img{display:block;width:100%;height:auto}
+
+
+/* ===== 10. CONTACT FORM + SCROLL REVEAL ===== */
+.contact{text-align:center;align-items:center}
+.contact h2{font-size:clamp(38px,7vw,88px)}
+input,textarea{
+  width:100%;margin-bottom:12px;padding:13px 16px;border-radius:14px;outline:none;
+  background:var(--card);border:1px solid var(--line);color:var(--fg);font:300 15px var(--sans)}
+input:focus,textarea:focus{border-color:var(--acc)}
+.rv{opacity:0;transform:translateY(36px);transition:opacity .8s,transform .8s}   /* hidden and shifted down until scrolled into view */
+.rv.in{opacity:1;transform:none}                                                  /* script.js adds .in when the element is visible */
+
+
+/* ===== 11. FINISHING TOUCHES + PAGE FADE ===== */
+::selection{background:var(--pri);color:var(--on)}                  /* highlighted text uses the theme colour */
+:focus-visible{outline:2px solid var(--acc);outline-offset:3px;border-radius:8px}   /* clear outline for keyboard users */
+.skip{position:fixed;left:16px;top:-60px;z-index:200;padding:10px 18px;border-radius:99px;background:var(--pri);color:var(--on);font-size:12px;transition:top .3s}
+.skip:focus{top:16px}                                               /* "Skip to content" slides into view on Tab */
+.sprog{position:fixed;top:0;left:0;width:100%;height:2px;background:var(--pri);transform-origin:0 50%;transform:scaleX(0);z-index:60}   /* scroll-progress bar */
+nav a.l.on{color:var(--fg);background:var(--line)}                  /* nav link of the section you are in */
+
+/* Page fade (works with js/transition.js): the page fades in when it loads; when a link to another page
+   is clicked, transition.js adds "leaving" to <html> and the page fades out. */
+@keyframes pgin{from{opacity:0}}
+body{animation:pgin .5s ease both}
+html.leaving body{opacity:0;transition:opacity .35s ease;animation:none}

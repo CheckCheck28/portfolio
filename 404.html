@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<!--
+  404.html — shown by GitHub Pages when someone opens a link that does not exist.
+
+  Because this page can be served from ANY url depth (e.g. /portfolio/typo/page), all file paths below
+  are made absolute by the <base> tag. Replace "yourname" in that one tag with your GitHub username
+  (and keep "/portfolio/" only if your repository is called "portfolio").
+
+  It follows the colour palette chosen on the main site, and the palette switcher works here too.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">   <!-- keep this error page out of Google -->
+<title>404 — Page not found</title>
+
+<!-- All relative links below start from here -->
+<base href="https://yourname.github.io/portfolio/">
+
+<!-- Re-apply the saved colour palette before the page paints -->
+<script>try{var p=localStorage.getItem('palette');if(p)document.documentElement.dataset.p=p}catch(e){}</script>
+
+<link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@500&family=Jost:wght@300;400;500&display=swap">
+<link rel="stylesheet" href="css/palettes.css">
+<style>
+  *{box-sizing:border-box;margin:0}
+  html{scrollbar-width:none}html::-webkit-scrollbar{display:none}
+  /* Variables the palette switcher expects */
+  body{
+    --sans:'Jost','Helvetica Neue',Arial,sans-serif;
+    --bg:#07050a;--fg:#ffffff;--mut:#b9b3b6;--card:rgba(255,255,255,.05);--line:rgba(255,255,255,.13);--acc:#d3cdd0;
+    min-height:100vh;display:grid;place-items:center;padding:24px;text-align:center;
+    background:radial-gradient(ellipse at 70% 20%,var(--p2),#07050a 65%);   /* glow in the chosen palette */
+    color:var(--fg);font:300 17px/1.7 var(--sans)}
+  h1{font:500 clamp(90px,24vw,220px)/1 'Bodoni Moda',Georgia,serif;color:var(--acc)}
+  p{margin:10px 0 30px;color:var(--mut)}
+  .btn{
+    display:inline-block;padding:12px 28px;border-radius:99px;background:var(--p1);color:var(--p1-on);
+    font:500 12px var(--sans);letter-spacing:.18em;text-transform:uppercase;transition:transform .3s,box-shadow .3s}
+  .btn:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(var(--p1-rgb),.4)}
+  .btn:focus-visible{outline:2px solid var(--acc);outline-offset:3px}
+</style>
+</head>
+<body>
+  <main>
+    <h1>404</h1>
+    <p>This state doesn’t exist — the wavefunction collapsed somewhere else.</p>
+    <a class="btn" href="./">Back to home</a>
+  </main>
+
+  <script src="js/palette.js"></script>   <!-- the corner palette switcher -->
+</body>
+</html>

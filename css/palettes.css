@@ -1,0 +1,63 @@
+/* =====================================================================
+   palettes.css — the colour palettes
+   Used by every page (index.html, blog posts, 404.html). Load it BEFORE the page's own stylesheet.
+
+   How it works
+     The corner switcher (js/palette.js) sets  <html data-p="violet|blue|green|gold|mono">.
+     No attribute = the default Burgundy palette.
+     Every palette defines the same nine variables, and the other stylesheets only ever use these:
+
+       --p1 / --p1-on   bright accent used on BLACK sections, and the text colour placed on top of it
+       --p2             deep colour used as the background of the "burg" sections
+       --p3             darker accent used on WHITE sections
+       --p4             darkest accent used on LIGHT-GRAY sections
+       --pN-rgb         the same colours as "r,g,b", used for glows and transparent tints
+
+   The set (6): Violet, Blue, Green, Gold, Burgundy (default) and Mono (no colour, just black / white / gray).
+   Keep a palette only if it stays readable on all four section backgrounds. White text on --p3 and --p4,
+   and --p1-on text on --p1, should keep good contrast.
+
+   To add one: copy a block, rename it, change the colours, then add it to PALS in js/palette.js.
+   ===================================================================== */
+
+/* VIOLET */
+html[data-p="violet"]{
+  --p1:#a78bfa;--p1-rgb:167,139,250;--p1-on:#07050a;
+  --p2:#2b1160;--p2-rgb:43,17,96;
+  --p3:#6d28d9;--p3-rgb:109,40,217;
+  --p4:#3b1a7a;--p4-rgb:59,26,122}
+
+/* BLUE */
+html[data-p="blue"]{
+  --p1:#4f8cff;--p1-rgb:79,140,255;--p1-on:#07050a;
+  --p2:#0b2a63;--p2-rgb:11,42,99;
+  --p3:#1d4ed8;--p3-rgb:29,78,216;
+  --p4:#12306f;--p4-rgb:18,48,111}
+
+/* GREEN */
+html[data-p="green"]{
+  --p1:#2ecc8f;--p1-rgb:46,204,143;--p1-on:#07050a;
+  --p2:#0b3d2c;--p2-rgb:11,61,44;
+  --p3:#0b6b45;--p3-rgb:11,107,69;
+  --p4:#0a4d33;--p4-rgb:10,77,51}
+
+/* GOLD (a warm amber) */
+html[data-p="gold"]{
+  --p1:#e7b52c;--p1-rgb:231,181,44;--p1-on:#07050a;
+  --p2:#5a4210;--p2-rgb:90,66,16;
+  --p3:#8a6500;--p3-rgb:138,101,0;
+  --p4:#5c4308;--p4-rgb:92,67,8}
+
+/* MONO (no colour accent: black, charcoal, white and gray only) */
+html[data-p="mono"]{
+  --p1:#e8e8ea;--p1-rgb:232,232,234;--p1-on:#07050a;
+  --p2:#26262b;--p2-rgb:38,38,43;
+  --p3:#2a2a2e;--p3-rgb:42,42,46;
+  --p4:#1f1f23;--p4-rgb:31,31,35}
+
+/* BURGUNDY — the default, so it lives on :root and needs no data-p attribute */
+:root{
+  --p1:#c81e4d;--p1-rgb:200,30,77;--p1-on:#ffffff;
+  --p2:#5a0a23;--p2-rgb:90,10,35;
+  --p3:#7a0f2e;--p3-rgb:122,15,46;
+  --p4:#5a0a23;--p4-rgb:90,10,35}

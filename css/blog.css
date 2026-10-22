@@ -1,0 +1,158 @@
+/* =====================================================================
+   blog.css — shared styles for every blog post (blog/blog1.html, blog2.html, ...)
+
+   Contents
+     1. Theme colours (dark / light)      6. Table of contents
+     2. Base                              7. Headings, code, share row, author box
+     3. Top bar + dark/light switch       8. Back-to-top, details, print
+     4. Reading-progress bar              9. Page fade
+     5. Article typography
+
+   Dark mode matches the site's black theme; light mode matches its white theme.
+   The mode is set by <html data-theme="dark|light"> (see js/blog.js).
+   Accent colours (--p1 ... --p4) come from css/palettes.css, so the corner palette switcher works here too.
+   ===================================================================== */
+
+
+/* ===== 1. THEME COLOURS ===== */
+html[data-theme="dark"]{
+  --serif:'Bodoni Moda','Cormorant Garamond',Georgia,serif;--sans:'Jost','Helvetica Neue',Arial,sans-serif;
+  --bg:#07050a;--fg:#ffffff;--mut:#b9b3b6;--card:rgba(255,255,255,.05);--line:rgba(255,255,255,.13);
+  --pri:var(--p1);--on:var(--p1-on);--acc:#d3cdd0;--code:#120a10;--glow:rgba(var(--p2-rgb),.55);color-scheme:dark}
+html[data-theme="light"]{
+  --bg:#faf8f9;--fg:#1a1215;--mut:#5f565b;--card:#ffffff;--line:rgba(var(--p3-rgb),.16);
+  --pri:var(--p3);--on:#ffffff;--acc:#5f565b;--code:#f1ecee;--glow:rgba(var(--p3-rgb),.10);color-scheme:light}
+
+
+/* ===== 2. BASE ===== */
+*{box-sizing:border-box;margin:0}
+html{
+  scroll-behavior:smooth;scroll-padding-top:100px;     /* anchor links stop below the fixed top bar */
+  scrollbar-width:none;                                 /* hide the page scrollbar (Firefox) ... */
+  background:var(--bg);transition:background .5s}
+html::-webkit-scrollbar{display:none}                   /* ... and in Chrome / Safari / Edge */
+*{scrollbar-width:none}*::-webkit-scrollbar{display:none}   /* every other scrollable box too (code blocks); scrolling still works */
+body{
+  background:var(--bg);color:var(--fg);font:300 17px/1.85 var(--sans);-webkit-font-smoothing:antialiased;
+  transition:background .5s,color .5s;
+  background-image:radial-gradient(ellipse at 75% -10%,var(--glow),transparent 60%);background-repeat:no-repeat}   /* soft glow at the top */
+h1,h2{font-family:var(--serif);font-weight:500}
+a{color:inherit;text-decoration:none}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+
+
+/* ===== 3. TOP BAR: back link + dark/light switch ===== */
+.bar{
+  position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:20;width:min(760px,94vw);
+  display:flex;justify-content:space-between;align-items:center;padding:8px 10px 8px 20px;border-radius:99px;
+  background:var(--card);backdrop-filter:blur(16px);border:1px solid var(--line);transition:.5s}
+.bar b{margin-right:14px;color:var(--acc);font:italic 500 18px var(--serif)}               /* "AP" logo */
+.bar a.back{font-size:12px;color:var(--mut);transition:color .3s}
+.bar a.back:hover{color:var(--fg)}
+/* The switch: a pill-shaped track with a sliding knob */
+.sw{display:flex;align-items:center;gap:10px;background:none;border:0;cursor:pointer;color:var(--mut);font:500 11px var(--sans);letter-spacing:.16em;text-transform:uppercase}
+.sw .track{position:relative;width:44px;height:24px;border-radius:99px;border:1px solid var(--line);background:var(--card);transition:.4s}
+.sw .knob{position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:var(--pri);transition:transform .4s cubic-bezier(.2,.8,.2,1),background .4s}
+html[data-theme="light"] .sw .knob{transform:translateX(20px)}                             /* knob slides right in light mode */
+.sw .lbl::before{content:"Dark"}
+html[data-theme="light"] .sw .lbl::before{content:"Light"}                                 /* label text follows the mode */
+
+
+/* ===== 4. READING-PROGRESS BAR (top edge) ===== */
+.progress{position:fixed;top:0;left:0;width:100%;height:3px;background:var(--pri);transform-origin:0 50%;transform:scaleX(0);z-index:30}
+
+
+/* ===== 5. ARTICLE TYPOGRAPHY ===== */
+main{max-width:720px;margin:0 auto;padding:130px 24px 40px}
+.tag{color:var(--acc);letter-spacing:.38em;font-size:11px;font-weight:500;text-transform:uppercase}
+h1{font-size:clamp(34px,6vw,58px);line-height:1.1;margin:10px 0 14px}
+.meta{color:var(--mut);font-size:12px;margin-bottom:10px}
+.chip{display:inline-block;padding:1px 12px;margin:6px 6px 0 0;border-radius:99px;border:1px solid var(--line);font-size:11px;color:var(--mut)}
+article h2{font-size:clamp(24px,4vw,34px);margin:44px 0 10px}                              /* section headings inside the post */
+article p{color:var(--mut);margin-bottom:18px}
+article p strong{color:var(--fg)}
+article ul{color:var(--mut);margin:0 0 18px 22px}
+article li{margin-bottom:6px}
+blockquote{margin:26px 0;padding:6px 0 6px 20px;border-left:3px solid var(--pri);color:var(--fg);font:italic 500 24px/1.5 var(--serif)}
+code{padding:1px 6px;border-radius:6px;border:1px solid var(--line);background:var(--code);font:13px ui-monospace,Menlo,Consolas,monospace}
+pre{
+  position:relative;margin:0 0 22px;padding:18px;overflow-x:auto;border-radius:14px;
+  border:1px solid var(--line);background:var(--code);font:13px/1.7 ui-monospace,Menlo,Consolas,monospace;}
+pre code{padding:0;border:0;background:none}
+/* Figure: replace the dashed placeholder with an <img> when you have a picture */
+.fig{margin:30px 0}
+.fig .ph{aspect-ratio:16/8;display:grid;place-items:center;border-radius:18px;border:1px dashed var(--line);background:linear-gradient(135deg,var(--card),transparent);color:var(--mut);font-size:12px}
+.fig img{display:block;width:100%;border-radius:18px}
+figcaption{margin-top:8px;color:var(--mut);font-size:12px;text-align:center}
+.callout{margin:26px 0;padding:16px 20px;border-radius:14px;border:1px solid var(--line);border-left:3px solid var(--pri);background:var(--card);color:var(--mut);font-size:14px}
+.callout b{color:var(--fg)}
+
+/* Previous / next post */
+.pn{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:720px;margin:20px auto 0;padding:0 24px}
+.pn a{display:block;padding:18px 20px;border-radius:18px;border:1px solid var(--line);background:var(--card);transition:border-color .3s,transform .3s}
+.pn a:hover{border-color:var(--acc);transform:translateY(-3px)}
+.pn small{display:block;color:var(--mut);font-size:11px;letter-spacing:.15em;text-transform:uppercase}
+.pn span{font:500 19px var(--serif)}
+.pn a.next{text-align:right}
+.pn a.off{visibility:hidden}                                                               /* hides the arrow on the first / last post */
+@media(max-width:560px){.pn{grid-template-columns:1fr}.pn a.next{text-align:left}}
+footer{max-width:720px;margin:0 auto;padding:40px 24px;color:var(--mut);font-size:12px;text-align:center}
+footer a{color:var(--acc);border-bottom:1px solid var(--line)}
+
+
+/* ===== 6. TABLE OF CONTENTS (built by js/blog.js from the h2 headings) =====
+   Narrow screens: a card above the article. Wide screens (1260px+): floats in the left margin and follows you. */
+.toc{margin:26px 0 8px;padding:16px 20px;border-radius:16px;border:1px solid var(--line);background:var(--card);font-size:13px}
+.toc b{display:block;margin-bottom:6px;color:var(--acc);font-size:10.5px;font-weight:500;letter-spacing:.24em;text-transform:uppercase}
+.toc ol{list-style:none;padding:0}
+.toc a{display:block;padding:4px 0 4px 12px;border-left:2px solid var(--line);color:var(--mut);transition:color .3s,border-color .3s}
+.toc a:hover{color:var(--fg)}
+.toc a.on{color:var(--fg);border-left-color:var(--pri)}                                    /* the section you are reading */
+@media(min-width:1260px){.toc{position:fixed;left:calc(50% - 360px - 250px);top:150px;width:210px;margin:0;padding:0;border:0;background:none}}
+
+
+/* ===== 7. HEADING LINKS, CODE COPY BUTTON, SHARE ROW, AUTHOR BOX ===== */
+.hash{margin-left:12px;color:var(--acc);font:400 .55em var(--sans);opacity:0;transition:opacity .3s}   /* "#" link beside a heading */
+article h2:hover .hash,.hash:focus-visible{opacity:1}
+.copy{
+  position:absolute;top:10px;right:10px;padding:4px 12px;border-radius:99px;border:1px solid var(--line);background:var(--bg);
+  color:var(--mut);font:500 10px var(--sans);letter-spacing:.14em;text-transform:uppercase;cursor:pointer;opacity:.6;transition:.3s}
+pre:hover .copy,.copy:focus-visible{opacity:1;color:var(--fg)}
+.share{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:40px 0 0;padding-top:24px;border-top:1px solid var(--line)}
+.share>span{margin-right:6px;color:var(--mut);font-size:11px;letter-spacing:.22em;text-transform:uppercase}
+.chipbtn{padding:7px 16px;border-radius:99px;border:1px solid var(--line);background:none;color:var(--fg);font:500 11px var(--sans);letter-spacing:.14em;text-transform:uppercase;cursor:pointer;transition:.3s}
+.chipbtn:hover{border-color:var(--acc);transform:translateY(-2px)}
+.author{display:flex;align-items:center;gap:18px;margin:28px 0 0;padding:20px;border-radius:18px;border:1px solid var(--line);background:var(--card)}
+.author .av{flex:none;display:grid;place-items:center;width:56px;height:56px;border-radius:50%;border:1px solid var(--acc);color:var(--acc);font:italic 500 20px var(--serif)}
+.author b{font:500 19px var(--serif)}
+.author p{margin:2px 0 0;color:var(--mut);font-size:14px;line-height:1.6}
+.author a{color:var(--fg);border-bottom:1px solid var(--line)}
+
+
+/* ===== 8. BACK-TO-TOP, SMALL DETAILS, PRINT ===== */
+.top{
+  position:fixed;right:22px;bottom:22px;z-index:20;width:44px;height:44px;border-radius:50%;
+  border:1px solid var(--line);background:var(--card);backdrop-filter:blur(12px);color:var(--fg);font-size:18px;cursor:pointer;
+  opacity:0;transform:translateY(16px);pointer-events:none;transition:opacity .4s,transform .4s,border-color .3s}
+.top.show{opacity:1;transform:none;pointer-events:auto}                                    /* js/blog.js shows it after scrolling down */
+.top:hover{border-color:var(--acc)}
+::selection{background:var(--pri);color:var(--on)}
+:focus-visible{outline:2px solid var(--acc);outline-offset:3px;border-radius:8px}
+.skip{position:fixed;left:16px;top:-60px;z-index:200;padding:10px 18px;border-radius:99px;background:var(--pri);color:var(--on);font-size:12px;transition:top .3s}
+.skip:focus{top:16px}                                                                      /* "Skip to article" slides into view on Tab */
+
+/* Print: a clean black-on-white copy of the article */
+@media print{
+  .bar,.progress,.top,.toc,.share,.pn,.skip,.copy,.hash,.pal{display:none!important}
+  html[data-theme]{--bg:#fff;--fg:#000;--mut:#333;--line:#ccc;--card:#fff;--code:#f4f4f4;--pri:#7a0f2e;--acc:#333}
+  body{background:#fff;background-image:none}
+  main{padding-top:20px}
+}
+
+
+/* ===== 9. PAGE FADE (works with js/transition.js) =====
+   The page fades in when it loads; when a link to another page is clicked, transition.js adds "leaving"
+   to <html> and the page fades out. */
+@keyframes pgin{from{opacity:0}}
+body{animation:pgin .5s ease both}
+html.leaving body{opacity:0;transition:opacity .35s ease;animation:none}

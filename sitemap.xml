@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  sitemap.xml — tells search engines which pages exist.
+  Before publishing: replace "yourname" with your GitHub username.
+  When you change a page, update its <lastmod> date (YYYY-MM-DD).
+  After publishing, submit this file in Google Search Console.
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://yourname.github.io/portfolio/</loc>  <!-- the page address -->
+    <lastmod>2026-10-21</lastmod>                      <!-- date of last update (YYYY-MM-DD) -->
+    <changefreq>monthly</changefreq>                   <!-- how often it changes -->
+    <priority>1.0</priority>                           <!-- 0.0 to 1.0; only one page here, so 1.0 -->
+  </url>
+  <url>
+    <loc>https://yourname.github.io/portfolio/blog/blog1.html</loc>
+    <lastmod>2026-10-21</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://yourname.github.io/portfolio/blog/blog2.html</loc>
+    <lastmod>2026-10-21</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://yourname.github.io/portfolio/blog/blog3.html</loc>
+    <lastmod>2026-10-21</lastmod>
+    <priority>0.6</priority>
+  </url>
+</urlset>

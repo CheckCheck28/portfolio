@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<!--
+  blog1.html — one blog post. To add a new post:
+    1. Copy this file, keep it inside the blog/ folder, and name it blog4.html
+    2. Change the title, date, tags and the article text below (and the two canonical / og URLs in the head)
+    3. Add a card for it in js/data.js (D.notes) with  href:'./blog/blog4.html'
+    4. Update the Previous / Next links at the bottom, and add the page to sitemap.xml (in the site's top folder)
+  Styling comes from ../css/blog.css, behaviour from ../js/blog.js.
+  Automatic (you write nothing for these): table of contents from the <h2> headings, heading links, copy buttons on code,
+  read time, share buttons, back-to-top button, reading-progress bar, dark/light switch,
+  colour-palette switcher (js/palette.js) and the fade when leaving the page (js/transition.js).
+-->
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Apply the saved dark/light choice BEFORE the page paints, so there is no colour flash.
+     First visit with nothing saved: follow the visitor's device setting (light or dark).
+     The same line also re-applies the colour palette chosen on the main page. -->
+<meta name="theme-color" content="#07050a"> <!-- phone browser-bar colour; blog.js keeps it in sync -->
+<script>try{var t=localStorage.getItem('theme');document.documentElement.dataset.theme=t||(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');var p=localStorage.getItem('palette');if(p)document.documentElement.dataset.p=p}catch(e){}</script>
+
+<!-- SEO + social-share info for this post -->
+<title>How a p–n junction really works — Archit Pasayat</title>
+<meta name="description" content="How a p–n junction really works — a short note on semiconductor physics.">
+<link rel="canonical" href="https://yourname.github.io/portfolio/blog/blog1.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="How a p–n junction really works">
+<meta property="og:image" content="https://yourname.github.io/portfolio/assets/og.png">
+
+<!-- Favicons (same set as the main site) -->
+<link rel="icon" href="../assets/icons/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../assets/icons/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="../assets/icons/apple-touch-icon.png">
+
+<!-- Fonts + shared blog stylesheet -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,500;0,600;1,500&family=Cormorant+Garamond:ital,wght@1,500&family=Jost:wght@300;400;500&display=swap">
+<!-- palettes.css (the colour palettes) must come BEFORE blog.css -->
+<link rel="stylesheet" href="../css/palettes.css">
+<link rel="stylesheet" href="../css/blog.css">
+</head>
+<body>
+
+<!-- Accessibility: Tab once to reveal this link and jump straight to the article -->
+<a class="skip" href="#content">Skip to article</a>
+
+<!-- Thin reading-progress bar at the very top (filled by blog.js) -->
+<div class="progress" id="progress"></div>
+
+<!-- Top bar: back to the Notes section of the main site + the dark/light switch -->
+<div class="bar">
+  <span><b>AP</b><a class="back" href="../index.html#notes">← Back to notes</a></span>
+  <button class="sw" id="sw" role="switch" aria-label="Toggle dark and light mode"><span class="lbl"></span><span class="track"><span class="knob"></span></span></button>
+</div>
+
+<main id="content">
+  <!-- ===== Post header: topic, title, date, tags ===== -->
+  <div class="tag">Semiconductor physics</div>
+  <h1>How a p–n junction really works</h1>
+  <div class="meta">12 Oct 2026 · <span id="rt">5 min read</span></div> <!-- read time is recalculated by blog.js -->
+  <span class="chip">Semiconductors</span><span class="chip">Explainer</span>
+
+  <article>
+    <!-- ===== Introduction ===== -->
+    <h2>Introduction</h2>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. <strong>Ut enim ad minim veniam</strong>, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+    <!-- ===== Figure: swap the placeholder box for  <img src="../assets/blog/fig1.png" alt="description">  ===== -->
+    <figure class="fig">
+      <div class="ph">Figure placeholder — add your diagram or plot here</div>
+      <figcaption>Fig. 1 — Lorem ipsum dolor sit amet, consectetur adipiscing.</figcaption>
+    </figure>
+
+    <!-- ===== Main section ===== -->
+    <h2>The core idea</h2>
+    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+    <ul>
+      <li>Nemo enim ipsam voluptatem quia voluptas sit aspernatur.</li>
+      <li>Neque porro quisquam est, qui dolorem ipsum quia dolor.</li>
+      <li>Ut enim ad minima veniam, quis nostrum exercitationem.</li>
+    </ul>
+
+    <!-- A pull quote -->
+    <blockquote>“Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.”</blockquote>
+
+    <!-- ===== A short code / maths block ===== -->
+    <h2>A small calculation</h2>
+    <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti. Inline code looks like <code>E = h·f</code>, and longer snippets look like this:</p>
+<pre><code># lorem.py — a tiny example
+import numpy as np
+
+x = np.linspace(0, 1, 5)
+print(np.sin(2 * np.pi * x))</code></pre>
+
+    <!-- A highlighted note -->
+    <div class="callout"><b>Takeaway.</b> Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat.</div>
+
+    <!-- ===== Conclusion ===== -->
+    <h2>Conclusion</h2>
+    <p>Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus.</p>
+  </article>
+
+  <!-- ===== Share row (links are filled in by blog.js) ===== -->
+  <div class="share">
+    <span>Share</span>
+    <button class="chipbtn" id="copylink" type="button">Copy link</button>
+    <a class="chipbtn" id="sh-li" href="#" target="_blank" rel="noopener">LinkedIn</a>
+    <a class="chipbtn" id="sh-mail" href="#">Email</a>
+  </div>
+
+  <!-- ===== Author box: edit the name and the one-line bio ===== -->
+  <div class="author">
+    <div class="av">AP</div>
+    <div><b>Archit Pasayat</b><p>B.Tech Electrical Engineering student writing about semiconductors, quantum mechanics and astrophysics. <a href="../index.html#about">More about me</a></p></div>
+  </div>
+</main>
+
+<!-- ===== Previous / next post (add class "off" to a link to hide it) ===== -->
+<nav class="pn">
+  <a class="prev off" href="#" aria-hidden="true"><small>← Previous</small><span>&nbsp;</span></a>
+  <a class="next" href="blog2.html"><small>Next →</small><span>Reading a stellar spectrum</span></a>
+</nav>
+
+<footer>© 2026 Archit Pasayat · <a href="../index.html#notes">All notes</a> · <a href="../index.html">Home</a></footer>
+
+<!-- Back-to-top button: appears after scrolling down -->
+<button class="top" id="top" aria-label="Back to top">↑</button>
+
+<script src="../js/blog.js"></script>
+<script src="../js/palette.js"></script>     <!-- corner colour-palette switcher (shared with the main page) -->
+<script src="../js/transition.js"></script> <!-- fade between pages -->
+</body>
+</html>

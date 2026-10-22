@@ -1,0 +1,7 @@
+# robots.txt — instructions for search-engine crawlers.
+# Let every crawler read the whole site.
+User-agent: *
+Allow: /
+
+# Where the list of pages is (replace yourname with your GitHub username).
+Sitemap: https://yourname.github.io/portfolio/sitemap.xml
