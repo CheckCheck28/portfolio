@@ -121,10 +121,10 @@ var D = {
       d:[['Institution','IIT Bhilai'],['Duration','2026 – 2030'],['Status','In progress']], href:'#', hl:'University' },
     { t:'B.Tech Electrical Engineering', s:'NIT Durgapur · 2025 – 2026', p:'Lorem ipsum dolor sit amet.', m:L, tags:['Signals','Devices','Power systems'],
       d:[['Institution','NIT Durgapur'],['Duration','2025 – 2026'],['Status','Dropped Out']], href:'#', hl:'University' },
-    { t:'Class XII (Science)', s:'School Name · 2026', p:'Physics, Chemistry, Mathematics.', m:L, tags:['PCM','Board exam'],
-      d:[['Institution','School Name'],['Duration','2024 – 2026'],['Score','9X%']], href:'#', hl:'School' },
-    { t:'Class X', s:'School Name · 2024', p:'Lorem ipsum dolor sit amet.', m:L, tags:['Board exam','Foundations'],
-      d:[['Institution','School Name'],['Duration','2022 – 2024'],['Score','9X%']], href:'#', hl:'School' }
+    { t:'Class XII (Science)', s:'KIIT International School · 2025', p:'Physics, Chemistry, Mathematics.', m:L, tags:['PCM','Board exam'],
+      d:[['Institution','KIIT International School'],['Duration','2023 – 2025'],['Score','94.8%']], href:'#', hl:'School' },
+    { t:'Class X', s:'DAV Public School · 2024', p:'Lorem ipsum dolor sit amet.', m:L, tags:['Board exam','Foundations'],
+      d:[['Institution','DAV Public School'],['Duration','2014 – 2023'],['Score','98.4%']], href:'#', hl:'School' }
   ],
   /* NOTES & BLOG section: short write-ups */
   notes: [
