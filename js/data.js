@@ -73,13 +73,13 @@ var D = {
   /* PROJECTS section: use Problem / Approach / Result rows */
   projects: [
     { t:'Project Alpha', s:'Power electronics', p:'A 12V to 5V buck converter with 94% efficiency.', m:L, tags:['LTspice','Buck converter'],
-      d:[['Problem','Why the project exists, in one or two lines.'],['Approach','What you built and the key design decision.'],['Result','Measured numbers, plots or what you learned.']], href:'https://github.com/yourname', hl:'GitHub' },
+      d:[['Problem','Why the project exists, in one or two lines.'],['Approach','What you built and the key design decision.'],['Result','Measured numbers, plots or what you learned.']], href:'https://github.com/CheckCheck28', hl:'GitHub' },
     { t:'Project Beta', s:'FPGA · Verilog', p:'Lorem ipsum dolor sit amet consectetur.', m:L, tags:['Verilog','Vivado'],
-      d:[['Problem','Why the project exists.'],['Approach','What you built.'],['Result','What came out of it.']], href:'https://github.com/yourname', hl:'GitHub' },
+      d:[['Problem','Why the project exists.'],['Approach','What you built.'],['Result','What came out of it.']], href:'https://github.com/CheckCheck28', hl:'GitHub' },
     { t:'Project Gamma', s:'Quantum simulation', p:'Excepteur sint occaecat cupidatat.', m:L, tags:['Python','Qiskit'],
-      d:[['Problem','Why the project exists.'],['Approach','What you built.'],['Result','What came out of it.']], href:'https://github.com/yourname', hl:'GitHub' },
+      d:[['Problem','Why the project exists.'],['Approach','What you built.'],['Result','What came out of it.']], href:'https://github.com/CheckCheck28', hl:'GitHub' },
     { t:'Project Delta', s:'Astro data analysis', p:'Nemo enim ipsam voluptatem quia.', m:L, tags:['Astropy','Spectra'],
-      d:[['Problem','Why the project exists.'],['Approach','What you built.'],['Result','What came out of it.']], href:'https://github.com/yourname', hl:'GitHub' }
+      d:[['Problem','Why the project exists.'],['Approach','What you built.'],['Result','What came out of it.']], href:'https://github.com/CheckCheck28', hl:'GitHub' }
   ],
   /* EXPERIENCE section: internships, lab work, leadership */
   experience: [
@@ -100,11 +100,11 @@ var D = {
   /* COMPETITIVE PROGRAMMING section: one card per platform */
   cp: [
     { t:'Codeforces', s:'Expert · 1750', p:'Lorem ipsum dolor sit amet.', m:L, tags:['Graphs','DP','Math'],
-      d:[['Max rating','1750'],['Problems solved','600+'],['Contests','120']], href:'https://codeforces.com/profile/yourname', hl:'Profile' },
+      d:[['Max rating','1750'],['Problems solved','600+'],['Contests','120']], href:'https://codeforces.com/profile/Blaze_Dragon123', hl:'Profile' },
     { t:'LeetCode', s:'Knight · 2100', p:'Consectetur adipiscing elit.', m:L, tags:['Trees','DP','Greedy'],
-      d:[['Contest rating','2100'],['Problems solved','900+'],['Global rank','Top 2%']], href:'https://leetcode.com/yourname', hl:'Profile' },
+      d:[['Contest rating','2100'],['Problems solved','900+'],['Global rank','Top 2%']], href:'https://leetcode.com/u/BlazingGun111/', hl:'Profile' },
     { t:'CodeChef', s:'5-star · 2000', p:'Sed do eiusmod tempor.', m:L, tags:['Number theory','Strings'],
-      d:[['Max rating','2000'],['Contests','40'],['Best division','Div 1']], href:'https://codechef.com/users/yourname', hl:'Profile' }
+      d:[['Max rating','2000'],['Contests','40'],['Best division','Div 1']], href:'https://www.codechef.com/users/machine_gun135', hl:'Profile' }
   ],
   /* CERTIFICATES section */
   certs: [
