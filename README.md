@@ -37,7 +37,7 @@ python3 -m http.server 8000   # then open http://localhost:8000
 
 ## Customise
 
-All text lives in `js/data.js`. Replace `yourname` in the URLs with your GitHub username, add `assets/photo.jpg` and `assets/cv.pdf`, and publish with GitHub Pages (*Settings → Pages → Deploy from branch → main / root*).
+All text lives in `js/data.js`. Update the content and profile links there, add `assets/photo.jpg` and `assets/cv.pdf`, and publish with GitHub Pages (*Settings → Pages → Deploy from branch → main / root*).
 
 ## License
 
