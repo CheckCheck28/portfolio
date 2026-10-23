@@ -91,7 +91,7 @@ document.getElementById('cf').addEventListener('submit', function(e){
 })();
 
 /* ---------- 5. TYPING ANIMATION (hero) ---------- */
-var W = ['I study semiconductor physics','I think in quantum states','I look up at the stars','I design circuits'], // edit the phrases here
+var W = ['I think in quantum states','I look up at the stars','I design circuits'], // edit the phrases here
     wi = 0, ci = 0, dl = false, ty = document.getElementById('type'); // wi=phrase index, ci=letters shown, dl=deleting?
 (function tk(){
   var w = W[wi];
