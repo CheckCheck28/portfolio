@@ -41,45 +41,23 @@ var L = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
 var D = {
   /* SKILLS & TOOLS section (id="skills") */
   skills: [
-    { t:'Simulation & Design', s:'EDA · Modelling', p:'LTspice, COMSOL, MATLAB and Simulink.', m:L, tags:['LTspice','COMSOL','MATLAB'],
-      d:[['Strongest','LTspice'],['Also use','COMSOL, Simulink, Cadence'],['Level','Advanced']], href:'#', hl:'Details' },
     { t:'Programming', s:'Software', p:'Python, C++ and Verilog.', m:L, tags:['Python','C++','Verilog'],
       d:[['Strongest','Python'],['Also use','C++, Verilog, Git'],['Level','Advanced']], href:'#', hl:'Details' },
-    { t:'Hardware & Lab', s:'Bench work', p:'Oscilloscope, PCB and microcontrollers.', m:L, tags:['PCB','Arduino','STM32'],
-      d:[['Strongest','PCB design'],['Also use','Oscilloscope, soldering'],['Level','Intermediate']], href:'#', hl:'Details' },
-    { t:'Quantum & Astro', s:'Scientific computing', p:'Qiskit, Astropy and NumPy.', m:L, tags:['Qiskit','Astropy','NumPy'],
-      d:[['Strongest','Astropy'],['Also use','Qiskit, SciPy'],['Level','Intermediate']], href:'#', hl:'Details' }
   ],
   /* RESEARCH INTERESTS section (id="research") */
   research: [
     { t:'Semiconductor Physics', s:'Devices · Band theory', p:'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', m:L, tags:['Band theory','Carrier transport','Wide-bandgap'],
       d:[['Focus','Carrier transport in wide-bandgap devices'],['Methods','Simulation, literature review'],['Status','Ongoing']], href:'#', hl:'Notes' },
-    { t:'Quantum Mechanics', s:'Theory · Simulation', p:'Sed do eiusmod tempor incididunt ut labore.', m:L, tags:['Schrödinger eq.','Qubits'],
-      d:[['Focus','Few-level systems and qubit dynamics'],['Methods','Numerical solvers, Qiskit'],['Status','Ongoing']], href:'#', hl:'Notebook' },
-    { t:'Astrophysics', s:'Observation · Data', p:'Ut enim ad minim veniam quis nostrud.', m:L, tags:['Stellar evolution','Spectra'],
-      d:[['Focus','Stellar spectra and classification'],['Methods','Astropy, public survey data'],['Status','Ongoing']], href:'#', hl:'Notes' },
-    { t:'Electronics & Electrical', s:'Circuits · Power · VLSI', p:'Duis aute irure dolor in reprehenderit.', m:L, tags:['Analog design','Power electronics','VLSI'],
-      d:[['Focus','Efficient power conversion'],['Methods','LTspice, bench measurements'],['Status','Ongoing']], href:'#', hl:'Notes' }
   ],
   /* PUBLICATIONS section: papers, preprints, posters */
   publications: [
     { t:'Paper Title One', s:'Journal / Conference · 2025', p:'You, Co-author A, Supervisor B', m:L, tags:['Preprint','Semiconductors'],
       d:[['Role','First author'],['Type','Preprint'],['Year','2025']], href:'#', hl:'Read paper' },
-    { t:'Poster Title Two', s:'Symposium · 2024', p:'You, Co-author A', m:L, tags:['Poster','Quantum'],
-      d:[['Role','Co-author'],['Type','Poster'],['Year','2024']], href:'#', hl:'View poster' },
-    { t:'Report Title Three', s:'Lab report · 2024', p:'You', m:L, tags:['Report','Astrophysics'],
-      d:[['Role','Sole author'],['Type','Report'],['Year','2024']], href:'#', hl:'PDF' }
   ],
   /* PROJECTS section: use Problem / Approach / Result rows */
   projects: [
     { t:'Project Alpha', s:'Power electronics', p:'A 12V to 5V buck converter with 94% efficiency.', m:L, tags:['LTspice','Buck converter'],
       d:[['Problem','Why the project exists, in one or two lines.'],['Approach','What you built and the key design decision.'],['Result','Measured numbers, plots or what you learned.']], href:'https://github.com/CheckCheck28', hl:'GitHub' },
-    { t:'Project Beta', s:'FPGA · Verilog', p:'Lorem ipsum dolor sit amet consectetur.', m:L, tags:['Verilog','Vivado'],
-      d:[['Problem','Why the project exists.'],['Approach','What you built.'],['Result','What came out of it.']], href:'https://github.com/CheckCheck28', hl:'GitHub' },
-    { t:'Project Gamma', s:'Quantum simulation', p:'Excepteur sint occaecat cupidatat.', m:L, tags:['Python','Qiskit'],
-      d:[['Problem','Why the project exists.'],['Approach','What you built.'],['Result','What came out of it.']], href:'https://github.com/CheckCheck28', hl:'GitHub' },
-    { t:'Project Delta', s:'Astro data analysis', p:'Nemo enim ipsam voluptatem quia.', m:L, tags:['Astropy','Spectra'],
-      d:[['Problem','Why the project exists.'],['Approach','What you built.'],['Result','What came out of it.']], href:'https://github.com/CheckCheck28', hl:'GitHub' }
   ],
   /* EXPERIENCE section: internships, lab work, leadership */
   experience: [
@@ -90,12 +68,8 @@ var D = {
   ],
   /* ACHIEVEMENTS section: awards, scholarships, ranks */
   achievements: [
-    { t:'Scholarship / Award', s:'Awarding body · 2025', p:'Lorem ipsum dolor sit amet.', m:L, tags:['Award','Merit'],
-      d:[['Awarded by','Organisation name'],['Year','2025'],['Reason','Short reason.']], href:'#', hl:'Details' },
     { t:'Contest Rank', s:'Event · 2024', p:'Top X% among N participants.', m:L, tags:['Contest','Ranking'],
       d:[['Event','Event name'],['Year','2024'],['Result','Top X%']], href:'#', hl:'Details' },
-    { t:'Hackathon / Olympiad', s:'Event · 2023', p:'Consectetur adipiscing elit.', m:L, tags:['Hackathon','Team'],
-      d:[['Event','Event name'],['Year','2023'],['Result','Position or prize']], href:'#', hl:'Details' }
   ],
   /* COMPETITIVE PROGRAMMING section: one card per platform */
   cp: [
@@ -121,9 +95,9 @@ var D = {
       d:[['Institution','IIT Bhilai'],['Duration','2026 – 2030'],['Status','In progress']], href:'#', hl:'University' },
     { t:'B.Tech Electrical Engineering', s:'NIT Durgapur · 2025 – 2026', p:'Lorem ipsum dolor sit amet.', m:L, tags:['Signals','Devices','Power systems'],
       d:[['Institution','NIT Durgapur'],['Duration','2025 – 2026'],['Status','Dropped Out']], href:'#', hl:'University' },
-    { t:'Class XII (Science)', s:'KIIT International School · 2025', p:'Physics, Chemistry, Mathematics.', m:L, tags:['PCM','Board exam'],
+    { t:'Class XII (Science)', s:'KIIT International School · 2025', p:'Physics, Chemistry, Mathematics.', m:L, tags:['PCM'],
       d:[['Institution','KIIT International School'],['Duration','2023 – 2025'],['Score','94.8%']], href:'#', hl:'School' },
-    { t:'Class X', s:'DAV Public School · 2024', p:'Lorem ipsum dolor sit amet.', m:L, tags:['Board exam','Foundations'],
+    { t:'Class X', s:'DAV Public School · 2024', p:'Lorem ipsum dolor sit amet.', m:L, tags:['Foundations'],
       d:[['Institution','DAV Public School'],['Duration','2014 – 2023'],['Score','98.4%']], href:'#', hl:'School' }
   ],
   /* NOTES & BLOG section: short write-ups */
