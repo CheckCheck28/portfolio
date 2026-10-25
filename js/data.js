@@ -89,16 +89,16 @@ var D = {
     { t:'Certificate Three', s:'Issuer · 2023', p:'Sed do eiusmod.', m:L, tags:['Course','Verified'],
       d:[['Issuer','Organisation name'],['Year','2023'],['Credential ID','XXXX-0000']], href:'#', hl:'Verify' }
   ],
-  /* EDUCATION section: degrees and schooling */
+/* EDUCATION section: degrees and schooling */
   edu: [
-    { t:'B.Tech Electrical Engineering', s:'IIT Bhilai · 2026 – 2030', p:'Lorem ipsum dolor sit amet.', m:L, tags:['Signals','Devices','Power systems'],
-      d:[['Institution','IIT Bhilai'],['Duration','2026 – 2030'],['Status','In progress']], href:'#', hl:'University' },
-    { t:'B.Tech Electrical Engineering', s:'NIT Durgapur · 2025 – 2026', p:'Lorem ipsum dolor sit amet.', m:L, tags:['Signals','Devices','Power systems'],
-      d:[['Institution','NIT Durgapur'],['Duration','2025 – 2026'],['Status','Dropped Out']], href:'#', hl:'University' },
-    { t:'Class XII (Science)', s:'KIIT International School · 2025', p:'Physics, Chemistry, Mathematics.', m:L, tags:['PCM'],
-      d:[['Institution','KIIT International School'],['Duration','2023 – 2025'],['Score','94.8%']], href:'#', hl:'School' },
-    { t:'Class X', s:'DAV Public School · 2024', p:'Lorem ipsum dolor sit amet.', m:L, tags:['Foundations'],
-      d:[['Institution','DAV Public School'],['Duration','2014 – 2023'],['Score','98.4%']], href:'#', hl:'School' }
+    { t:'B.Tech in Electrical Engineering', s:'IIT Bhilai · 2026 - 2030', p:'Currently in my first year of undergraduate studies.', m:'Currently pursuing my Bachelor of Technology in Electrical Engineering, and participating in clubs of OpenLake, DesignX, SES and Quizzotica.', tags:[],
+      d:[['Institution','Indian Institute of Technology, Bhilai'],['Duration','Jul 2026 - present'],['CGPA','-']], href:'https://iitbhilai.ac.in/', hl:'University' },
+    { t:'B.Tech in Electrical Engineering', s:'NIT Durgapur · 2025 - 2026', p:'Completed the first year of the B.Tech program before switching to IIT Bhilai.', m:'Studied the first year of undergraduate coursework in Electrical Engineering, securing a CGPA of 8.97, with an active participation in various club activities of IEEESB-NITD', tags:['DSA','Basics of EE'],
+      d:[['Institution','National Institute of Technology, Durgapur'],['Duration','Aug 2025 - May 2026'],['CGPA','8.97']], href:'https://nitdgp.ac.in/', hl:'University' },
+    { t:'Class XII (Science)', s:'KIIT International School · 2025', p:'Completed senior secondary studies with a strong foundation in science and mathematics.', m:'Passed the All India Senior School Certificate Examination (AISSCE) by Central Board of Secondary Education (CBSE) in the Science stream (PCM) with 94.8%. Achieved a percentile of 98.6 in JEE Main 2025 and an All India Rank of ~10,000 in JEE Advanced 2026.', tags:['Physics','Chemistry','Mathematics'],
+      d:[['Institution','KIIT International School, Bhubaneswar'],['Duration','2023 - 2025'],['Score','94.8%']], href:'https://kiitis.ac.in/', hl:'School' },
+    { t:'Class X', s:'DAV Public School · 2023', p:'Completed high school foundational studies with distinction.', m:'Completed the All India Secondary School Examination (AISSE) conducted by Central Board of Secondary Education (CBSE) with a score of 98.4%, securing the 3rd rank in the school.', tags:['Foundations'],
+      d:[['Institution','DAV Public School, Chandrasekharpur'],['Duration','2014 - 2023'],['Score','98.4%']], href:'https://davcsp.org/', hl:'School' }
   ],
   /* NOTES & BLOG section: short write-ups */
   notes: [

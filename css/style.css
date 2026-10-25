@@ -168,7 +168,7 @@ section{min-height:100svh;scroll-snap-align:start;padding:100px 7vw 60px;display
 .card h3{font-size:25px;line-height:1.2;margin-bottom:4px}
 .card .s,.card h3{transition:padding-right .5s,font-size .5s,color .8s}   /* these resize smoothly when a card expands */
 .card .s{color:var(--acc);font-size:12px;margin-bottom:8px}      /* subtitle line */
-.card p{color:var(--mut);font-size:13px}
+.card p{color:var(--mut);font-size:14px}
 .chip{display:inline-block;padding:2px 13px;margin:10px 6px 0 0;border-radius:99px;border:1px solid var(--line);font-size:11px;letter-spacing:.08em} /* tag chips */
 .more,.corner{display:none}                                      /* details and corner buttons exist only in the expanded copy */
 
@@ -195,7 +195,7 @@ section{min-height:100svh;scroll-snap-align:start;padding:100px 7vw 60px;display
 .more>p{margin-bottom:6px}
 .dd{display:grid;grid-template-columns:140px 1fr;gap:14px;padding:11px 0;border-top:1px solid var(--line)}
 .dd b{padding-top:2px;color:var(--acc);font-size:10.5px;font-weight:500;letter-spacing:.22em;text-transform:uppercase}
-.dd span{color:var(--fg);font-size:13px}
+.dd span{color:var(--fg);font-size:14px}
 @media(max-width:520px){.dd{grid-template-columns:1fr;gap:2px}}   /* phones: label above the text */
 
 /* Corner image: a semi-transparent picture that slides in at the bottom-right while a card is open.
