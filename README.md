@@ -25,7 +25,7 @@ index.html        main page
 css/              style.css · blog.css · palettes.css
 js/               data.js (all content) · script.js · blog.js · palette.js · transition.js
 blog/             blog1.html · blog2.html · blog3.html
-assets/           og.png · icons/   (add photo.jpg and cv.pdf)
+assets/           og.png · cv.pdf · photo.jpg · icons/ · cards/
 sitemap.xml · robots.txt · site.webmanifest · favicon.ico
 ```
 
@@ -34,10 +34,6 @@ sitemap.xml · robots.txt · site.webmanifest · favicon.ico
 ```bash
 python3 -m http.server 8000   # then open http://localhost:8000
 ```
-
-## Customise
-
-All text lives in `js/data.js`. Update the content and profile links there, add `assets/photo.jpg` and `assets/cv.pdf`, and publish with GitHub Pages (*Settings → Pages → Deploy from branch → main / root*).
 
 ## License
 
