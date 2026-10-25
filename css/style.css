@@ -82,14 +82,16 @@ h2 em{color:var(--pri);transition:color .8s}                    /* the coloured 
    "gap" keeps a minimum space between them on narrower screens. */
 nav{
   position:fixed;top:calc(14px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);z-index:50;
-  width:min(1120px,94vw);display:flex;justify-content:space-between;align-items:center;gap:48px;
+  width:min(1120px,94vw);min-width:0;display:flex;justify-content:space-between;align-items:center;gap:48px;
   padding:8px 10px 8px 28px;border-radius:99px;
-  background:var(--card);backdrop-filter:blur(16px);border:1px solid var(--line);transition:.8s}
-nav .brand{font:italic 500 23px var(--serif);letter-spacing:.03em;color:var(--fg);white-space:nowrap}  /* your name */
-nav .links{display:flex;align-items:center;gap:6px}
+  background:var(--card);backdrop-filter:blur(16px);border:1px solid var(--line);transition:background .8s,border-color .8s}
+nav .brand{font:italic 500 clamp(17px,5vw,23px) var(--serif);letter-spacing:.03em;color:var(--fg);white-space:nowrap}  /* your name */
+nav .links{display:flex;align-items:center;gap:6px;min-width:0}
 nav a.l{padding:6px 13px;border-radius:99px;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--mut);transition:.3s}
 nav a.l:hover{color:var(--fg);background:var(--line)}
-@media(max-width:760px){nav a.l{display:none}nav{gap:16px;padding-left:20px}}   /* phones: keep only the name and the button */
+nav .btn{padding:9px 20px;font-size:12px;white-space:nowrap}
+@media(max-width:900px){nav a.l{display:none}nav{gap:16px;padding-left:20px}}   /* tablets and phones: keep only the name and button */
+@media(max-width:520px){nav{gap:12px;padding-left:16px}nav .btn{padding:7px 10px;letter-spacing:.12em}}
 
 .btn{
   display:inline-block;padding:11px 24px;border-radius:99px;border:0;cursor:pointer;
@@ -123,9 +125,9 @@ section{min-height:100svh;scroll-snap-align:start;padding:100px 7vw 60px;display
 /* ===== 6. HERO ===== */
 .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:36px;align-items:center}
 @media(max-width:860px){.hero{grid-template-columns:1fr}}         /* phones: stack */
-.hero h1{font-size:clamp(42px,7vw,88px);line-height:1.05;margin:8px 0}
+.hero h1{font-size:clamp(32px,7vw,88px);line-height:1.05;margin:8px 0}
 .hero h1 span{color:var(--pri);font-style:italic;transition:color .8s}
-.type{color:var(--acc);font:400 28px 'Cedarville Cursive',cursive;min-height:38px;margin-bottom:12px}
+.type{color:var(--acc);font:400 clamp(18px,3.25vw,28px)/1.35 'Cedarville Cursive',cursive;min-height:1.35em;margin-bottom:12px}
 .type::after{content:"|";animation:bl 1s steps(1) infinite}      /* blinking cursor after the typed text */
 @keyframes bl{50%{opacity:0}}
 .row{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:24px}
