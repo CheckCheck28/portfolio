@@ -95,8 +95,10 @@ nav a.l:hover{color:var(--fg);background:var(--line)}
   display:inline-block;padding:11px 24px;border-radius:99px;border:0;cursor:pointer;
   background:var(--pri);color:var(--on);
   font:500 12.5px var(--sans);letter-spacing:.18em;text-transform:uppercase;
-  transition:transform .3s,box-shadow .3s,background .8s,color .8s}
-.btn:hover{transform:translateY(-3px) scale(1.04);box-shadow:0 8px 30px rgba(var(--nn),.35)}
+  transition:transform .3s,box-shadow .3s,filter .3s,background .8s,color .8s}
+/* Make hover obvious and give clicks a pressed-in response. */
+.btn:hover{transform:translateY(-3px) scale(1.04);filter:brightness(1.12);box-shadow:0 8px 30px rgba(var(--nn),.35)}
+.btn:active{transform:translateY(-1px) scale(.98);filter:brightness(.94);box-shadow:0 3px 12px rgba(var(--nn),.25)}
 .btn.o{background:none;color:var(--fg);border:1px solid var(--line)}   /* outlined variant */
 
 /* "Scroll down" hint: fixed at the bottom centre, see-through, bobbing slowly.
