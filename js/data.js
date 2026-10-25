@@ -20,7 +20,7 @@
 
 /* ---------- SITE: settings used across the page ---------- */
 var SITE = {
-  limit: 6,                                    // cards each section shows before a "Show all" button appears
+  limit: 3,                                    // cards each section shows before a "Show all" button appears
   email: 'architpasayat28@gmail.com',                     // shown in the contact section; the contact form sends here
   cv: 'assets/cv.pdf',                         // file the Download CV button opens (put your CV in assets/)
   formspree: '',                               // optional, e.g. 'https://formspree.io/f/xxxxxxx'. Empty = the form opens the visitor's mail app
@@ -60,11 +60,19 @@ var D = {
       d:[['Problem','Why the project exists, in one or two lines.'],['Approach','What you built and the key design decision.'],['Result','Measured numbers, plots or what you learned.']], href:'https://github.com/CheckCheck28', hl:'GitHub' },
   ],
   /* EXPERIENCE section: internships, lab work, leadership */
-  experience: [
-    { t:'Research Intern', s:'Lab / Company · Summer 2025', p:'Worked on lorem ipsum dolor sit amet.', m:L, tags:['Research','Simulation'],
-      d:[['Role','Research intern'],['What I did','Short description of your work.'],['Outcome','Result or deliverable.']], href:'#', hl:'Lab page' },
-    { t:'Student Club Lead', s:'Club Name · 2023 – now', p:'Led a team of 15 members.', m:L, tags:['Leadership','Events'],
-      d:[['Role','Team lead'],['What I did','Short description of your work.'],['Outcome','Result or deliverable.']], href:'#', hl:'Club page' }
+experience: [
+    { t:'NIUS Physics Scholar', s:'HBCSE, TIFR Mumbai · Jun 2026', p:'Selected among the top 70 students nationally for the undergraduate physics research camp.', m:'Participated in the prestigious National Initiative on Undergraduate Science (NIUS) Physics camp at the Homi Bhabha Centre for Science Education (TIFR). Selected nationally among the top 70 students to explore advanced physics concepts and research methodologies.', tags:['Physics','Research','TIFR'],
+      d:[['Role','Physics Scholar'],['Selection','Top 70 Nationally'],['Location','HBCSE, Mumbai']], href:'#', hl:'HBCSE Page' },
+    { t:'Design & PR Member', s:'OpenLake, IIT Bhilai · Aug 2026 – Present', p:'Managing design and public relations while co-organizing Major League Hacking (MLH) events.', m:'Serving as a Design and Public Relations Member for OpenLake, the open-source club at IIT Bhilai. Responsibilities include co-organizing Major League Hacking (MLH) events, designing promotional materials, and managing public outreach.', tags:['Open Source','Design','MLH'],
+      d:[['Role','Design & PR'],['Key Activity','Co-organizing MLH events'],['Institution','IIT Bhilai']], href:'#', hl:'OpenLake Page' },
+    { t:'Junior Coordinator', s:'IEEE Student Branch, NIT Durgapur · Aug 2025 – May 2026', p:'Participated in technical initiatives and secured 2nd place in the Epoch ML hackathon.', m:'Active member of the IEEE Student Branch at NIT Durgapur during my first year. Engaged in technical events and secured second place in the Epoch machine learning hackathon by engineering a Network Intrusion Detection System on the CIC-IoT dataset.', tags:['IEEE','Machine Learning','Cybersecurity'],
+      d:[['Role','Junior Coordinator'],['Key Achievement','2nd Place in Epoch Hackathon'],['Institution','NIT Durgapur']], href:'#', hl:'IEEE SB Page' },
+    { t:'Member', s:'DesignX, IIT Bhilai · Oct 2026 – Present', p:'Recently joined the design club to explore creative tools and visual communication.', m:'Active member of DesignX, the official design club at IIT Bhilai. Currently exploring design fundamentals, participating in introductory workshops, and preparing to contribute to upcoming campus design projects.', tags:['Design','UI/UX'],
+      d:[['Role','Member'],['Status','Newly Joined'],['Institution','IIT Bhilai']], href:'#', hl:'DesignX Page' },
+    { t:'Member', s:'Space Exploration Society, IIT Bhilai · Oct 2026 – Present', p:'Engaging with the campus astronomy and space science community.', m:'Recently joined the Space Exploration Society at IIT Bhilai. Looking forward to participating in observation sessions, technical discussions on astrophysics, and connecting with peers interested in space technologies.', tags:['Astronomy','Space'],
+      d:[['Role','Member'],['Status','Newly Joined'],['Institution','IIT Bhilai']], href:'#', hl:'SES Page' },
+    { t:'Member', s:'Quizotica, IIT Bhilai · Oct 2026 – Present', p:'Participating in campus quizzing events and knowledge-building sessions.', m:'New member of Quizotica, the quizzing club at IIT Bhilai. Engaging in trivia discussions and preparing to participate in upcoming inter-college quizzing competitions.', tags:['Quizzing','Trivia'],
+      d:[['Role','Member'],['Status','Newly Joined'],['Institution','IIT Bhilai']], href:'#', hl:'Quizotica Page' }
   ],
   /* ACHIEVEMENTS section: awards, scholarships, ranks */
   achievements: [
