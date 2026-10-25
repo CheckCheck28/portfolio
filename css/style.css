@@ -162,13 +162,15 @@ section{min-height:100svh;scroll-snap-align:start;padding:100px 7vw 60px;display
 .card{
   position:relative;overflow:hidden;padding:24px;border-radius:20px;
   background:var(--card);border:1px solid var(--line);backdrop-filter:blur(8px);
-  transition:border-color .3s,box-shadow .3s,background .8s}
+  transition:border-color .3s,box-shadow .3s,background .8s,color .3s,transform .3s}
+.card:not(.x):hover,.card:not(.x):focus-visible{border-color:var(--acc);color:var(--acc);transform:translateY(-3px)} /* Match the hero social buttons: accent and lift on hover or keyboard focus. */
 .card[data-x]{cursor:pointer}                                    /* data-x marks a card that can be expanded */
 .card[data-x]:hover,.card[data-x]:focus-visible{border-color:var(--acc);box-shadow:0 0 36px rgba(var(--acc-rgb),.2)}
 .card[data-x]::after{content:"↗ expand";position:absolute;right:18px;bottom:14px;font-size:11px;color:var(--acc);opacity:0;transition:.3s}
 .card[data-x]:hover::after{opacity:1}                            /* the "expand" hint appears on hover */
 .card h3{font-size:25px;line-height:1.2;margin-bottom:4px}
 .card .s,.card h3{transition:padding-right .5s,font-size .5s,color .8s}   /* these resize smoothly when a card expands */
+.card:not(.x) h3{transition:padding-right .5s,font-size .5s,color .3s} /* Keep regular card titles in sync with the hover effect. */
 .card .s{color:var(--acc);font-size:13px;margin-bottom:8px}      /* subtitle line */
 .card p{color:var(--mut);font-size:14px}
 .chip{display:inline-block;padding:2px 13px;margin:10px 6px 0 0;border-radius:99px;border:1px solid var(--line);font-size:12px;letter-spacing:.08em} /* tag chips */
@@ -219,6 +221,8 @@ input,textarea{
   background:var(--card);border:1px solid var(--line);color:var(--fg);font:300 16px var(--sans)}
 input:focus,textarea:focus{border-color:var(--acc)}
 .rv{opacity:0;transform:translateY(36px);transition:opacity .8s,transform .8s}   /* hidden and shifted down until scrolled into view */
+.card.rv:not(.x){transition:opacity .8s,transform .3s,border-color .3s,box-shadow .3s,background .8s,color .3s;transition-delay:var(--reveal-delay,0s),0s,0s,0s,0s,0s} /* Stagger the reveal fade without delaying hover feedback. */
+.rv{transition-delay:var(--reveal-delay,0s)}
 .rv.in{opacity:1;transform:none}                                                  /* script.js adds .in when the element is visible */
 
 

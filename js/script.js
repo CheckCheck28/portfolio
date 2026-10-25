@@ -136,7 +136,7 @@ var io = new IntersectionObserver(function(es){
   });
 }, {threshold:.1});
 document.querySelectorAll('.rv').forEach(function(e,i){
-  e.style.transitionDelay = (i%4)*.1 + 's';                              // small stagger so cards appear one after another
+  e.style.setProperty('--reveal-delay', (i%4)*.1 + 's');                 // small stagger so cards appear one after another
   io.observe(e);
 });
 
