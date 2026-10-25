@@ -148,8 +148,11 @@ section{min-height:100svh;scroll-snap-align:start;padding:100px 7vw 60px;display
 .photo{
   aspect-ratio:4/5;position:relative;overflow:hidden;border-radius:14px;border:1px solid var(--line);
   background:linear-gradient(160deg,var(--card),transparent);
-  display:grid;place-items:center;font:italic 500 65px var(--serif);color:var(--acc)}   /* initials show until a photo exists */
-.photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}          /* the real photo covers the initials */
+  display:grid;place-items:center;font:italic 500 65px var(--serif);color:var(--acc);
+  transition:transform .3s,border-color .3s,box-shadow .3s}   /* initials show until a photo exists */
+.photo-wrap:hover .photo{transform:translateY(-3px);border-color:var(--acc);box-shadow:0 8px 30px rgba(var(--acc-rgb),.2)}
+.photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .3s} /* the real photo covers the initials */
+.photo-wrap:hover .photo img{transform:scale(1.04)}
 .facts{display:flex;gap:30px;flex-wrap:wrap}
 .facts b{display:block;font:500 25px var(--serif);color:var(--acc)}
 .facts small{color:var(--mut);font-size:12px}
@@ -170,10 +173,11 @@ section{min-height:100svh;scroll-snap-align:start;padding:100px 7vw 60px;display
 .card[data-x]:hover::after{opacity:1}                            /* the "expand" hint appears on hover */
 .card h3{font-size:25px;line-height:1.2;margin-bottom:4px}
 .card .s,.card h3{transition:padding-right .5s,font-size .5s,color .8s}   /* these resize smoothly when a card expands */
-.card:not(.x) h3{transition:padding-right .5s,font-size .5s,color .3s} /* Keep regular card titles in sync with the hover effect. */
+.card:not(.x) h3{transition:padding-right .5s,font-size .5s,color .8s} /* Keep the regular card title color transition at .8s. */
 .card .s{color:var(--acc);font-size:13px;margin-bottom:8px}      /* subtitle line */
 .card p{color:var(--mut);font-size:14px}
-.chip{display:inline-block;padding:2px 13px;margin:10px 6px 0 0;border-radius:99px;border:1px solid var(--line);font-size:12px;letter-spacing:.08em} /* tag chips */
+.chip{display:inline-block;padding:2px 13px;margin:10px 6px 0 0;border-radius:99px;border:1px solid var(--line);font-size:12px;letter-spacing:.08em;transition:border-color .3s,color .3s,box-shadow .3s} /* tag chips */
+.chip:hover{border-color:var(--acc);color:var(--acc);box-shadow:0 0 14px rgba(var(--acc-rgb),.2)}
 .more,.corner{display:none}                                      /* details and corner buttons exist only in the expanded copy */
 
 
