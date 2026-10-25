@@ -38,10 +38,11 @@ var PALS = [
   /* ---------- Styles for the widget (injected here so this file works on its own) ---------- */
   var st = document.createElement('style');
   st.textContent = `
-  .pal{position:fixed;left:22px;bottom:22px;z-index:60;display:flex;flex-direction:column;align-items:flex-start;gap:10px}
+  /* Let page content receive pointer events outside the visible palette controls. */
+  .pal{position:fixed;left:22px;bottom:22px;z-index:60;display:flex;flex-direction:column;align-items:flex-start;gap:10px;pointer-events:none}
 
   /* The button: a 44px circle that stretches into a pill on hover to reveal its label */
-  .pal-btn{box-sizing:border-box;display:flex;align-items:center;gap:10px;height:44px;max-width:44px;padding:0 11px;border-radius:99px;
+  .pal-btn{box-sizing:border-box;display:flex;align-items:center;gap:10px;height:44px;max-width:44px;padding:0 11px;border-radius:99px;pointer-events:auto;
     border:1px solid var(--line);background:var(--card);backdrop-filter:blur(12px);color:var(--fg);cursor:pointer;overflow:hidden;opacity:.8;
     font:400 12px var(--sans,sans-serif);letter-spacing:.1em;white-space:nowrap;
     transition:max-width .5s cubic-bezier(.2,.8,.2,1),opacity .3s}
