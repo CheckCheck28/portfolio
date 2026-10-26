@@ -16,9 +16,8 @@
 
 
 /* ===== 1. THEME COLOURS =====
-   Every colour on the page comes from these variables. script.js sets <body data-t="...">
-   as you scroll and the matching block below takes over; the background fades because
-   body has a transition.
+   Main sections use deep black; About and Contact use the selected palette's deep colour.
+   script.js sets <body data-t="..."> as sections enter view; body has a transition for the change.
      --bg    background           --fg     main text          --mut    muted text
      --card  card fill            --line   borders            --pri    main accent (buttons, headings)
      --on    text on top of --pri --acc    small labels       --acc-rgb / --nn   the same colours as "r,g,b" for glows and the canvas */
@@ -58,8 +57,9 @@ body{
   transition:background .8s,color .8s;overflow-x:hidden}
 h1,h2,h3{font-family:var(--serif);font-weight:500}   /* headings use the high-contrast serif */
 a{color:inherit;text-decoration:none}
+p{line-height:1.5} /* tighter paragraph leading than the body default */
 .tag{color:var(--acc);letter-spacing:.38em;font-size:12px;font-weight:500;text-transform:uppercase;transition:color .8s} /* small label above a heading */
-h2{font-size:clamp(34px,5vw,58px);line-height:1.1;margin:6px 0 10px}
+h2{font-size:clamp(36px,5vw,60px);line-height:1.1;margin:6px 0 10px} /* slightly larger section headings */
 h2 em{color:var(--pri);transition:color .8s}                    /* the coloured word in each heading */
 .sub{color:var(--mut);max-width:540px;margin-bottom:34px}        /* grey paragraph under a heading */
 #stars{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.55}  /* the star-network canvas (drawn by script.js) */
@@ -84,12 +84,21 @@ nav{
   position:fixed;top:calc(14px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);z-index:50;
   width:min(1120px,94vw);min-width:0;display:flex;justify-content:space-between;align-items:center;gap:48px;
   padding:8px 10px 8px 28px;border-radius:99px;
-  background:var(--card);backdrop-filter:blur(16px);border:1px solid var(--line);transition:background .8s,border-color .8s}
-nav .brand{font:italic 500 clamp(17px,5vw,23px) var(--serif);letter-spacing:.03em;color:var(--fg);white-space:nowrap}  /* your name */
-nav .links{display:flex;align-items:center;gap:6px;min-width:0}
-nav a.l{padding:6px 13px;border-radius:99px;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--mut);transition:.3s}
-nav a.l:hover{color:var(--fg);background:var(--line)}
-nav .btn{padding:9px 20px;font-size:12px;white-space:nowrap}
+  background:var(--card);backdrop-filter:blur(16px);border:1px solid var(--line);transition:background .8s,border-color .8s} /* use the theme's original navigation surface */
+nav .brand{font:700 clamp(17px,5vw,23px) 'Satoshi',var(--sans);letter-spacing:-.035em;color:var(--fg);white-space:nowrap}  /* bold Satoshi gives your name a clean, classical look */
+nav .links{display:flex;align-items:center;gap:4px;min-width:0}
+/* Keep section links quiet until hover or scroll-state gives them a soft accent outline. */
+nav a.l{padding:8px 12px;border:1px solid transparent;border-radius:99px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);transition:color .3s,background .3s,border-color .3s}
+nav a.l:hover{color:var(--acc);background:rgba(var(--nn),.07);border-color:rgba(var(--nn),.14)}
+/* Let’s talk stays distinct as the primary action, but uses the same restrained glass surface. */
+nav .btn{
+  padding:9px 18px;font-size:11px;letter-spacing:.15em;white-space:nowrap;
+  background:rgba(var(--nn),.1);color:var(--fg);border:1px solid rgba(var(--nn),.32);
+  box-shadow:inset 0 1px rgba(255,255,255,.1);transition:transform .3s,background .3s,border-color .3s,box-shadow .3s}
+nav .btn:hover{transform:translateY(-2px);background:rgba(var(--nn),.18);border-color:rgba(var(--nn),.62);filter:none;box-shadow:0 6px 20px rgba(var(--nn),.18)}
+/* Mark the current section and keep keyboard focus as visible as hover. */
+nav a.l.on{color:var(--acc);background:rgba(var(--nn),.1);border-color:rgba(var(--nn),.2)}
+nav a:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
 @media(max-width:900px){nav a.l{display:none}nav{gap:16px;padding-left:20px}}   /* tablets and phones: keep only the name and button */
 @media(max-width:520px){nav{gap:12px;padding-left:16px}nav .btn{padding:7px 10px;letter-spacing:.12em}}
 
@@ -111,6 +120,7 @@ nav .btn{padding:9px 20px;font-size:12px;white-space:nowrap}
   background:none;border:0;cursor:pointer;color:var(--fg);
   font:400 11.5px var(--sans);letter-spacing:.4em;text-transform:uppercase;
   opacity:.45;transition:opacity .6s;animation:bob 2.8s ease-in-out infinite}
+.scroll[hidden]{display:none}                                      /* hide the hint between the first and last sections */
 .scroll:hover{opacity:.85}
 .scroll .chev{width:10px;height:10px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(45deg)} /* small arrow drawn with borders */
 .scroll.up .chev{transform:rotate(225deg);margin-top:6px}        /* points up on the last section */
@@ -161,25 +171,39 @@ section{min-height:100svh;scroll-snap-align:start;padding:100px 7vw 60px;display
 
 
 /* ===== 8. CARDS AND GRID ===== */
-.grid{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}   /* as many columns as fit */
+.grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr))}   /* as many columns as fit without forcing overflow on phones */
 .grid:not(.all) .card.extra{display:none}                        /* cards beyond SITE.limit stay hidden until "Show all" */
 .showmore{align-self:center;margin-top:26px}
 .card{
-  position:relative;overflow:hidden;padding:24px;border-radius:20px;
-  background:var(--card);border:1px solid var(--line);backdrop-filter:blur(8px);
-  transition:border-color .3s,box-shadow .3s,background .8s,color .3s,transform .3s}
-.card:not(.x):hover,.card:not(.x):focus-visible{border-color:var(--acc);color:var(--acc);transform:translateY(-3px)} /* Match the hero social buttons: accent and lift on hover or keyboard focus. */
-.card[data-x]{cursor:pointer}                                    /* data-x marks a card that can be expanded */
-.card[data-x]:hover,.card[data-x]:focus-visible{border-color:var(--acc);box-shadow:0 0 36px rgba(var(--acc-rgb),.2)}
-.card[data-x]::after{content:"↗ expand";position:absolute;right:18px;bottom:14px;font-size:11px;color:var(--acc);opacity:0;transition:.3s}
-.card[data-x]:hover::after{opacity:1}                            /* the "expand" hint appears on hover */
-.card h3{font-size:25px;line-height:1.2;margin-bottom:4px}
+  position:relative;min-width:0;overflow:hidden;padding:26px;border-radius:18px;
+  background:rgba(var(--nn),.025);border:1px solid var(--line);backdrop-filter:blur(5px); /* keep regular cards nearly clear while preserving a light glass separation */
+  transition:border-color .7s,box-shadow .8s,background .8s,color .3s,transform .3s}
+.card:not(.x):hover,.card:not(.x):focus-visible{
+  border-color:rgba(var(--acc-rgb),.45);color:var(--acc);transform:translateY(-4px);
+  box-shadow:inset 0 20px 32px -28px rgba(var(--acc-rgb),.7),0 16px 40px rgba(var(--nn),.2)} /* slowly reveal the static top highlight and soft outer glow */
+.card[data-x]{cursor:pointer;padding-bottom:48px}                 /* reserve a quiet corner for the expand hint */
+@property --card-beam-angle{syntax:"<angle>";inherits:true;initial-value:0deg}
+.card::before{
+  content:"";position:absolute;inset:0;padding:1.5px;border-radius:inherit;pointer-events:none;
+  background:
+    conic-gradient(from var(--card-beam-angle),transparent 0deg 255deg,rgba(var(--acc-rgb),.04) 276deg,rgba(var(--acc-rgb),.2) 294deg,rgba(var(--acc-rgb),.72) 312deg,rgba(var(--acc-rgb),1) 320deg,rgba(var(--acc-rgb),.7) 328deg,rgba(var(--acc-rgb),.18) 346deg,transparent 360deg),
+    conic-gradient(from calc(var(--card-beam-angle) + 180deg),transparent 0deg 255deg,rgba(var(--acc-rgb),.04) 276deg,rgba(var(--acc-rgb),.2) 294deg,rgba(var(--acc-rgb),.72) 312deg,rgba(var(--acc-rgb),1) 320deg,rgba(var(--acc-rgb),.7) 328deg,rgba(var(--acc-rgb),.18) 346deg,transparent 360deg);
+  -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;
+  filter:drop-shadow(0 0 4px rgba(var(--acc-rgb),.8)) drop-shadow(0 0 9px rgba(var(--acc-rgb),.4));
+  opacity:0;animation:card-beam 3.2s linear infinite;transition:opacity .8s ease}
+.card:not(.x):hover::before,.card:not(.x):focus-visible::before{opacity:1} /* fade the continuously moving accent beams in and out smoothly */
+.card.beam-paused::before{opacity:1;animation-play-state:paused}
+@keyframes card-beam{to{--card-beam-angle:360deg}}
+.card[data-x]::after{content:"↗";position:absolute;right:18px;bottom:14px;width:24px;height:24px;display:grid;place-items:center;border:1px solid var(--line);border-radius:50%;color:var(--acc);font-size:14px;opacity:.45;transition:opacity .25s,transform .25s,border-color .25s}
+.card[data-x]:hover::after,.card[data-x]:focus-visible::after{opacity:1;border-color:rgba(var(--acc-rgb),.55);transform:translateY(-2px)} /* keep the expand cue subtle until interaction */
+.card h3{font-size:24px;line-height:1.25;letter-spacing:-.025em;margin-bottom:6px} /* slightly smaller than section headings */
+.card h3,.card .s,.card p,.chip,.dd span{overflow-wrap:anywhere}
 .card .s,.card h3{transition:padding-right .5s,font-size .5s,color .8s}   /* these resize smoothly when a card expands */
 .card:not(.x) h3{transition:padding-right .5s,font-size .5s,color .8s} /* Keep the regular card title color transition at .8s. */
-.card .s{color:var(--acc);font-size:13px;margin-bottom:8px}      /* subtitle line */
+.card .s{color:var(--acc);font-size:11px;font-weight:500;letter-spacing:.1em;margin-bottom:10px} /* compact metadata above the title */
 .card p{color:var(--mut);font-size:14px}
-.chip{display:inline-block;padding:2px 13px;margin:10px 6px 0 0;border-radius:99px;border:1px solid var(--line);font-size:12px;letter-spacing:.08em;transition:border-color .3s,color .3s,box-shadow .3s} /* tag chips */
-.chip:hover{border-color:var(--acc);color:var(--acc);box-shadow:0 0 14px rgba(var(--acc-rgb),.2)}
+.chip{display:inline-block;padding:4px 11px;margin:10px 6px 0 0;border-radius:99px;border:1px solid var(--line);background:rgba(var(--acc-rgb),.06);font-size:11px;letter-spacing:.04em;transition:border-color .3s,color .3s,background .3s} /* softly filled category chips */
+.chip:hover{border-color:var(--acc);color:var(--acc);background:rgba(var(--acc-rgb),.12)}
 .more,.corner{display:none}                                      /* details and corner buttons exist only in the expanded copy */
 
 
@@ -188,14 +212,17 @@ section{min-height:100svh;scroll-snap-align:start;padding:100px 7vw 60px;display
 .ov{position:fixed;inset:0;z-index:80;background:rgba(0,0,0,0);backdrop-filter:blur(0);transition:.4s}   /* dark backdrop */
 .ov.on{background:rgba(0,0,0,.6);backdrop-filter:blur(8px)}
 .card.x{
-  position:fixed;margin:0;max-height:86vh;overflow:auto;cursor:default;
-  background:var(--bg);box-shadow:0 30px 90px rgba(0,0,0,.5);
-  transition:left .5s cubic-bezier(.2,.8,.2,1),top .5s cubic-bezier(.2,.8,.2,1),width .5s cubic-bezier(.2,.8,.2,1),height .5s cubic-bezier(.2,.8,.2,1)} /* position and size animate */
+  position:fixed;margin:0;max-height:86vh;overflow:auto;cursor:default;padding-bottom:26px;
+  background:var(--bg);
+  box-shadow:inset 0 20px 32px -28px rgba(var(--acc-rgb),.7),0 30px 90px rgba(0,0,0,.5);
+  transition:left .5s cubic-bezier(.2,.8,.2,1),top .5s cubic-bezier(.2,.8,.2,1),width .5s cubic-bezier(.2,.8,.2,1),height .5s cubic-bezier(.2,.8,.2,1),box-shadow .8s ease} /* animate position, size, and the retained top highlight */
 .card.x::after{display:none}
+.card.x::before{display:block;opacity:1;animation:none}          /* hold the copied beam angle throughout the expand and close animation */
 .card.x .more{display:block;margin-top:14px;animation:fi .6s .25s both}   /* the details fade in */
 @keyframes fi{from{opacity:0;transform:translateY(12px)}}
 .card.x:not(.closing) h3{font-size:34px}                          /* bigger title when open */
 .card.x:not(.closing) .s,.card.x:not(.closing) h3{padding-right:130px}   /* leave room for the corner buttons */
+.card.x.closing{box-shadow:inset 0 20px 32px -28px rgba(var(--acc-rgb),0),0 0 0 0 rgba(0,0,0,0);transition-duration:.5s} /* fade both compatible shadow layers as the card returns to its original size */
 .card.x.closing .more,.card.x.closing .corner{opacity:0;animation:none;transition:opacity .18s}   /* on close the details fade out first */
 .card.x .corner{display:flex;align-items:center;gap:8px;position:absolute;top:16px;right:16px;z-index:2}   /* link + close button */
 .lk{padding:7px 15px;border-radius:99px;background:var(--pri);color:var(--on);font-size:11.5px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;transition:.3s}
@@ -206,7 +233,11 @@ section{min-height:100svh;scroll-snap-align:start;padding:100px 7vw 60px;display
 .dd{display:grid;grid-template-columns:140px 1fr;gap:14px;padding:11px 0;border-top:1px solid var(--line)}
 .dd b{padding-top:2px;color:var(--acc);font-size:11.5px;font-weight:500;letter-spacing:.22em;text-transform:uppercase}
 .dd span{color:var(--fg);font-size:14px}
-@media(max-width:520px){.dd{grid-template-columns:1fr;gap:2px}}   /* phones: label above the text */
+@media(max-width:520px){
+  .dd{grid-template-columns:minmax(0,1fr);gap:2px}
+  .card.x .corner{position:relative;top:auto;right:auto;justify-content:flex-end;margin-bottom:12px}
+  .card.x:not(.closing) .s,.card.x:not(.closing) h3{padding-right:0}
+}   /* phones: label above the text, with corner controls above the expanded card content */
 
 /* Corner image: a semi-transparent picture that slides in at the bottom-right while a card is open.
    Shown exactly as it is (no border, no tint, original proportions). It exists only if the card has an
@@ -227,7 +258,7 @@ input,textarea{
   background:var(--card);border:1px solid var(--line);color:var(--fg);font:300 16px var(--sans)}
 input:focus,textarea:focus{border-color:var(--acc)}
 .rv{opacity:0;transform:translateY(36px);transition:opacity .8s,transform .8s}   /* hidden and shifted down until scrolled into view */
-.card.rv:not(.x){transition:opacity .8s,transform .3s,border-color .3s,box-shadow .3s,background .8s,color .3s;transition-delay:var(--reveal-delay,0s),0s,0s,0s,0s,0s} /* Stagger the reveal fade without delaying hover feedback. */
+.card.rv:not(.x){transition:opacity .8s,transform .3s,border-color .7s,box-shadow .8s,background .8s,color .3s;transition-delay:var(--reveal-delay,0s),0s,0s,0s,0s,0s} /* stagger the reveal without shortening the beam glow's fade */
 .rv{transition-delay:var(--reveal-delay,0s)}
 .rv.in{opacity:1;transform:none}                                                  /* script.js adds .in when the element is visible */
 
@@ -238,7 +269,6 @@ input:focus,textarea:focus{border-color:var(--acc)}
 .skip{position:fixed;left:16px;top:-60px;z-index:200;padding:10px 18px;border-radius:99px;background:var(--pri);color:var(--on);font-size:13px;transition:top .3s}
 .skip:focus{top:16px}                                               /* "Skip to content" slides into view on Tab */
 .sprog{position:fixed;top:0;left:0;width:100%;height:2px;background:var(--pri);transform-origin:0 50%;transform:scaleX(0);z-index:60}   /* scroll-progress bar */
-nav a.l.on{color:var(--fg);background:var(--line)}                  /* nav link of the section you are in */
 
 /* Page fade (works with js/transition.js): the page fades in when it loads; when a link to another page
    is clicked, transition.js adds "leaving" to <html> and the page fades out. */

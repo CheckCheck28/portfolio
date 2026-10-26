@@ -15,7 +15,7 @@
 
 ---
 
-A scroll-snapping portfolio that shifts between **black, deep colour, white and light gray** as you move through sections. Click any card to expand it. Six switchable colour palettes (Burgundy, Blue, Green, Violet, Gold, Mono) in a translucent corner menu, a blog with dark and light modes, and no build step: plain HTML, CSS and JavaScript.
+A scroll-snapping portfolio with **deep black** sections, except for About and Contact, which use the selected palette's deep accent colour. The corner palette selector (Burgundy, Blue, Green, Violet, Gold, Mono) remains available and changes the accent colours. Click any card to expand it. Blog posts share the main site's dark palette and preserve the selected accent colour, with no build step: plain HTML, CSS and JavaScript.
 
 ## Structure
 

@@ -7,19 +7,17 @@
     4. Update the Previous / Next links at the bottom, and add the page to sitemap.xml (in the site's top folder)
   Styling comes from ../css/blog.css, behaviour from ../js/blog.js.
   Automatic (you write nothing for these): table of contents from the <h2> headings, heading links, copy buttons on code,
-  read time, share buttons, back-to-top button, reading-progress bar, dark/light switch,
+  read time, share buttons, back-to-top button, reading-progress bar,
   colour-palette switcher (js/palette.js) and the fade when leaving the page (js/transition.js).
 -->
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!-- Apply the saved dark/light choice BEFORE the page paints, so there is no colour flash.
-     First visit with nothing saved: follow the visitor's device setting (light or dark).
-     The same line also re-applies the colour palette chosen on the main page. -->
+<!-- Apply the saved palette before the page paints to keep the blog in sync with the main site. -->
 <meta name="theme-color" content="#07050a"> <!-- phone browser-bar colour; blog.js keeps it in sync -->
-<script>try{var t=localStorage.getItem('theme');document.documentElement.dataset.theme=t||(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');var p=localStorage.getItem('palette');if(p)document.documentElement.dataset.p=p}catch(e){}</script>
+<script>try{var p=localStorage.getItem('palette');if(p)document.documentElement.dataset.p=p}catch(e){}</script>
 
 <!-- SEO + social-share info for this post -->
 <title>Qubits without the hype — Archit Pasayat</title>
@@ -36,6 +34,8 @@
 
 <!-- Fonts + shared blog stylesheet -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap">
+<link rel="preconnect" href="https://api.fontshare.com">
+<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@700&display=swap">
 <!-- palettes.css (the colour palettes) must come BEFORE blog.css -->
 <link rel="stylesheet" href="../css/palettes.css">
 <link rel="stylesheet" href="../css/blog.css">
@@ -48,10 +48,10 @@
 <!-- Thin reading-progress bar at the very top (filled by blog.js) -->
 <div class="progress" id="progress"></div>
 
-<!-- Top bar: back to the Notes section of the main site + the dark/light switch -->
+<!-- Top bar: main-site identity and a link back to the Notes section -->
 <div class="bar">
-  <span><b>AP</b><a class="back" href="../index.html#notes">← Back to notes</a></span>
-  <button class="sw" id="sw" role="switch" aria-label="Toggle dark and light mode"><span class="lbl"></span><span class="track"><span class="knob"></span></span></button>
+  <a class="brand" href="../index.html">Archit Pasayat</a>
+  <a class="back" href="../index.html#notes">← Back to notes</a>
 </div>
 
 <main id="content">

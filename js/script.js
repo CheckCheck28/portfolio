@@ -102,26 +102,28 @@ var W = ['Forecasting cyclones and my end-sem grades','Professional yapper','O(1
   setTimeout(tk, dl ? 35 : 80);                                          // deleting is faster than typing
 })();
 
-/* ---------- 6. COLOUR THEME PER SECTION, NAV HIGHLIGHT, SCROLL HINT ---------- */
-var THEMES = ['black','burg','white','gray'],                            // the repeating colour order (names match style.css)
-    secs = [].slice.call(document.querySelectorAll('section')),
+/* ---------- 6. FIXED SECTION COLOURS, NAV HIGHLIGHT, SCROLL HINT ---------- */
+var secs = [].slice.call(document.querySelectorAll('section')),
     sd = document.getElementById('scrolldown'), sdl = document.getElementById('sdlabel'),
     metaTheme = document.querySelector('meta[name="theme-color"]'),     // colour of the phone's browser bar
     navLinks = [].slice.call(document.querySelectorAll('nav a.l')), cur = 0; // cur = index of the section currently on screen
-secs.forEach(function(s,i){ s.dataset.t = THEMES[i % THEMES.length]; }); // section 1 = black, 2 = burgundy, 3 = white, 4 = gray, 5 = black...
+secs.forEach(function(s){
+  if (s.id === 'about' || s.id === 'contact') s.dataset.t = 'burg'; // keep the palette color on About and Contact
+  else s.dataset.t = 'black';                                      // keep every other section deep black
+});
 /* Watch which section fills more than half the screen, then update everything that depends on it */
 var so = new IntersectionObserver(function(es){
-  es.forEach(function(e){
-    if (e.isIntersecting){
-      document.body.dataset.t = e.target.dataset.t;                      // switch the colour theme
-      cur = secs.indexOf(e.target);
-      var last = cur === secs.length - 1;
-      sd.classList.toggle('up', last);                                   // last section: the hint becomes "Back to top"
-      sdl.textContent = last ? 'Back to top' : 'Scroll down';
-      navLinks.forEach(function(a){ a.classList.toggle('on', a.getAttribute('href') === '#'+e.target.id); }); // highlight the matching nav link
-      setTimeout(function(){ if (metaTheme) metaTheme.content = getComputedStyle(document.body).getPropertyValue('--bg').trim(); }, 60); // tint the phone browser bar
-    }
-  });
+  var e = es.filter(function(x){ return x.isIntersecting; }).sort(function(a,b){ return b.intersectionRatio-a.intersectionRatio; })[0];
+  if (!e) return;                                                         // ignore sections that are leaving the viewport
+  document.body.dataset.t = e.target.dataset.t;                           // apply the most visible section's black or palette theme
+  cur = secs.indexOf(e.target);
+  var last = cur === secs.length - 1;
+  sd.classList.toggle('up', last);                                        // last section: the hint becomes "Back to top"
+  sdl.textContent = last ? 'Back to top' : 'Scroll down';
+  sd.setAttribute('aria-label', last ? 'Back to top' : 'Scroll down');
+  sd.hidden = cur !== 0 && !last;                                         // show the hint only on the first page (and the return link on the last)
+  navLinks.forEach(function(a){ a.classList.toggle('on', a.getAttribute('href') === '#'+e.target.id); }); // highlight the matching nav link
+  setTimeout(function(){ if (metaTheme) metaTheme.content = getComputedStyle(document.body).getPropertyValue('--bg').trim(); }, 60); // tint the phone browser bar
 }, {threshold:.5});
 secs.forEach(function(s){ so.observe(s); });
 sd.onclick = function(){                                                 // the hint is also a button
@@ -153,12 +155,14 @@ addEventListener('scroll', function(){
 function openCard(src){
   var r = src.getBoundingClientRect(),                                   // where the original card is right now
       o = document.createElement('div'); o.className = 'ov';             // dark overlay behind the big card
+  src.classList.add('beam-paused');                                      // freeze the beam so the expanded copy can continue from the same point
   var c = src.cloneNode(true); c.classList.add('x','in'); c.removeAttribute('data-x'); // the expanded copy
 
   /* place(x) sets the clone's position and size from a {left, top, width, height} box */
   function place(x){ c.style.left=x.left+'px'; c.style.top=x.top+'px'; c.style.width=x.width+'px'; c.style.height=x.height+'px'; }
 
-  c.style.cssText = 'transition-delay:0s;overflow:hidden'; place(r);     // start exactly on top of the original
+  c.style.cssText = 'transition:none;transition-delay:0s;overflow:hidden'; place(r); // position over the original without animating
+  c.style.setProperty('--card-beam-angle', getComputedStyle(src, '::before').getPropertyValue('--card-beam-angle'));
   o.appendChild(c); document.body.appendChild(o);
   src.style.visibility = 'hidden';                                       // hide the original so it doesn't show twice
   document.documentElement.style.overflow = 'hidden';                    // lock page scroll while open
@@ -182,7 +186,7 @@ function openCard(src){
     var t = src.getBoundingClientRect();                                 // original card's CURRENT position
     c.style.overflow = 'hidden'; c.classList.add('closing'); o.classList.remove('on'); // details fade, backdrop clears
     setTimeout(function(){ place(t); }, 120);                            // then fold back into the original spot
-    setTimeout(function(){ o.remove(); src.style.visibility=''; document.documentElement.style.overflow=''; src.focus({preventScroll:true}); }, 640); // remove the copy, restore the original, give keyboard focus back
+    setTimeout(function(){ o.remove(); src.style.visibility=''; src.classList.remove('beam-paused'); document.documentElement.style.overflow=''; src.focus({preventScroll:true}); }, 640); // restore the card and resume its beam after the close animation
   }
   function kd(e){ if (e.key == 'Escape') close(); }                      // Esc closes too
   document.addEventListener('keydown', kd);
@@ -190,9 +194,10 @@ function openCard(src){
 
   requestAnimationFrame(function(){
     var w = Math.min(680, innerWidth*.92);                               // final width
-    c.style.width = w+'px'; c.style.height = 'auto';                     // measure natural height at that width
+    c.style.width = w+'px'; c.style.height = 'auto';                     // measure natural height before the open animation
     var H = Math.min(c.offsetHeight, innerHeight*.86);
     place(r); c.offsetHeight;                                            // snap back to start (offsetHeight forces the browser to apply it)
+    c.style.transition = '';                                             // enable transitions only after measuring the natural height
     o.classList.add('on');
     place({left:(innerWidth-w)/2, top:Math.max(20,(innerHeight-H)/2), width:w, height:H}); // animate to the centre
     setTimeout(function(){ c.style.overflow = 'auto'; var xb = c.querySelector('.xb'); if (xb) xb.focus({preventScroll:true}); }, 520); // after the animation: allow scrolling inside tall cards, focus the × for keyboard users
