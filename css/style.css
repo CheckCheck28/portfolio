@@ -111,6 +111,7 @@ nav .btn{padding:9px 20px;font-size:12px;white-space:nowrap}
   background:none;border:0;cursor:pointer;color:var(--fg);
   font:400 11.5px var(--sans);letter-spacing:.4em;text-transform:uppercase;
   opacity:.45;transition:opacity .6s;animation:bob 2.8s ease-in-out infinite}
+.scroll[hidden]{display:none}                                      /* hide the hint between the first and last sections */
 .scroll:hover{opacity:.85}
 .scroll .chev{width:10px;height:10px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(45deg)} /* small arrow drawn with borders */
 .scroll.up .chev{transform:rotate(225deg);margin-top:6px}        /* points up on the last section */

@@ -118,6 +118,8 @@ var so = new IntersectionObserver(function(es){
       var last = cur === secs.length - 1;
       sd.classList.toggle('up', last);                                   // last section: the hint becomes "Back to top"
       sdl.textContent = last ? 'Back to top' : 'Scroll down';
+      sd.setAttribute('aria-label', last ? 'Back to top' : 'Scroll down');
+      sd.hidden = cur !== 0 && !last;                                     // show the hint only on the first page (and the return link on the last)
       navLinks.forEach(function(a){ a.classList.toggle('on', a.getAttribute('href') === '#'+e.target.id); }); // highlight the matching nav link
       setTimeout(function(){ if (metaTheme) metaTheme.content = getComputedStyle(document.body).getPropertyValue('--bg').trim(); }, 60); // tint the phone browser bar
     }
