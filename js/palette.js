@@ -24,12 +24,12 @@
    Burgundy is the default (it has no data-p attribute). Mono has no colour accent, only black, white and gray.
    To add a palette: add a line here and a matching block in css/palettes.css. */
 var PALS = [
+  ['mono',     'Mono',     '#d9d9dc'],
   ['burgundy', 'Burgundy', '#c81e4d'],
   ['blue',     'Blue',     '#4f8cff'],
-  ['green',    'Green',    '#2ecc8f'],
-  ['violet',   'Violet',   '#a78bfa'],
   ['gold',     'Gold',     '#e7b52c'],
-  ['mono',     'Mono',     '#d9d9dc']
+  ['green',    'Green',    '#2ecc8f'],
+  ['violet',   'Violet',   '#a78bfa']
 ];
 
 (function(){
