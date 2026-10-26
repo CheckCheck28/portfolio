@@ -58,8 +58,9 @@ body{
   transition:background .8s,color .8s;overflow-x:hidden}
 h1,h2,h3{font-family:var(--serif);font-weight:500}   /* headings use the high-contrast serif */
 a{color:inherit;text-decoration:none}
+p{line-height:1.5} /* tighter paragraph leading than the body default */
 .tag{color:var(--acc);letter-spacing:.38em;font-size:12px;font-weight:500;text-transform:uppercase;transition:color .8s} /* small label above a heading */
-h2{font-size:clamp(34px,5vw,58px);line-height:1.1;margin:6px 0 10px}
+h2{font-size:clamp(36px,5vw,60px);line-height:1.1;margin:6px 0 10px} /* slightly larger section headings */
 h2 em{color:var(--pri);transition:color .8s}                    /* the coloured word in each heading */
 .sub{color:var(--mut);max-width:540px;margin-bottom:34px}        /* grey paragraph under a heading */
 #stars{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.55}  /* the star-network canvas (drawn by script.js) */
@@ -85,7 +86,7 @@ nav{
   width:min(1120px,94vw);min-width:0;display:flex;justify-content:space-between;align-items:center;gap:48px;
   padding:8px 10px 8px 28px;border-radius:99px;
   background:var(--card);backdrop-filter:blur(16px);border:1px solid var(--line);transition:background .8s,border-color .8s}
-nav .brand{font:italic 500 clamp(17px,5vw,23px) var(--serif);letter-spacing:.03em;color:var(--fg);white-space:nowrap}  /* your name */
+nav .brand{font:700 clamp(17px,5vw,23px) 'Satoshi',var(--sans);letter-spacing:-.035em;color:var(--fg);white-space:nowrap}  /* bold Satoshi gives your name a clean, classical look */
 nav .links{display:flex;align-items:center;gap:6px;min-width:0}
 nav a.l{padding:6px 13px;border-radius:99px;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--mut);transition:.3s}
 nav a.l:hover{color:var(--fg);background:var(--line)}
@@ -174,7 +175,7 @@ section{min-height:100svh;scroll-snap-align:start;padding:100px 7vw 60px;display
 .card[data-x]:hover,.card[data-x]:focus-visible{border-color:var(--acc);box-shadow:0 0 36px rgba(var(--acc-rgb),.2)}
 .card[data-x]::after{content:"↗ expand";position:absolute;right:18px;bottom:14px;font-size:11px;color:var(--acc);opacity:0;transition:.3s}
 .card[data-x]:hover::after{opacity:1}                            /* the "expand" hint appears on hover */
-.card h3{font-size:25px;line-height:1.2;margin-bottom:4px}
+.card h3{font-size:24px;line-height:1.2;margin-bottom:4px} /* slightly smaller than section headings */
 .card h3,.card .s,.card p,.chip,.dd span{overflow-wrap:anywhere}
 .card .s,.card h3{transition:padding-right .5s,font-size .5s,color .8s}   /* these resize smoothly when a card expands */
 .card:not(.x) h3{transition:padding-right .5s,font-size .5s,color .8s} /* Keep the regular card title color transition at .8s. */
