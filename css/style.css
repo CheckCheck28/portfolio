@@ -60,8 +60,8 @@ a{color:inherit;text-decoration:none}
 p{line-height:1.5} /* tighter paragraph leading than the body default */
 .tag{color:var(--acc);letter-spacing:.38em;font-size:12px;font-weight:500;text-transform:uppercase;transition:color .8s} /* small label above a heading */
 h2{font-size:clamp(36px,5vw,60px);line-height:1.1;margin:6px 0 10px} /* slightly larger section headings */
-@media(max-width:520px){h2{font-size:clamp(28px,8.5vw,44px)}} /* keep long headings inside narrow phone screens */
-h2 em{color:var(--pri);transition:color .8s}                    /* the coloured word in each heading */
+@media(max-width:520px){h2{font-size:clamp(34px,9vw,48px)}} /* keep section headings readable on phones */
+h2 em{color:var(--pri);text-shadow:0 0 12px rgba(var(--nn),.3);transition:color .8s} /* subtle glow for accent-colored italic heading text */
 .sub{color:var(--mut);max-width:540px;margin-bottom:34px}        /* grey paragraph under a heading */
 #stars{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.55}  /* the star-network canvas (drawn by script.js) */
 
@@ -111,6 +111,9 @@ nav a:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
 /* Make hover obvious and give clicks a pressed-in response. */
 .btn:hover{transform:translateY(-3px) scale(1.04);filter:brightness(1.12);box-shadow:0 8px 30px rgba(var(--nn),.35)}
 .btn:active{transform:translateY(-1px) scale(.98);filter:brightness(.94);box-shadow:0 3px 12px rgba(var(--nn),.25)}
+#cv{box-shadow:0 0 22px rgba(var(--nn),.5),0 0 44px rgba(var(--nn),.28)} /* strong accent glow keeps the CV download prominent */
+#cv:hover{box-shadow:0 0 30px rgba(var(--nn),.65),0 0 56px rgba(var(--nn),.38)} /* brighten the glow on hover */
+#cv:active{box-shadow:0 0 16px rgba(var(--nn),.4),0 0 28px rgba(var(--nn),.22)} /* soften the glow while pressed */
 .btn.o{background:none;color:var(--fg);border:1px solid var(--line)}   /* outlined variant */
 
 /* "Scroll down" hint: fixed at the bottom centre, see-through, bobbing slowly.
@@ -137,7 +140,8 @@ section{min-height:100svh;scroll-snap-align:start;padding:100px 7vw 60px;display
 .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:36px;align-items:center}
 @media(max-width:860px){.hero{grid-template-columns:1fr}}         /* phones: stack */
 .hero h1{font-size:clamp(38px,8vw,96px);line-height:1.05;margin:8px 0 18px}
-.hero h1 span{color:var(--pri);font-style:italic;transition:color .8s}
+.hero h1 span{color:var(--pri);font-style:italic;text-shadow:0 0 16px rgba(var(--nn),.34);transition:color .8s} /* glow the accent-colored hero name */
+@media(max-width:520px){.hero h1{font-size:clamp(54px,13vw,72px)}} /* keep the hero name prominent on phones */
 .type{color:var(--acc);font:400 clamp(18px,3.25vw,28px)/1.35 'Cedarville Cursive',cursive;min-height:1.35em;margin-bottom:12px}
 .type::after{content:"|";animation:bl 1s steps(1) infinite}      /* blinking cursor after the typed text */
 @keyframes bl{50%{opacity:0}}

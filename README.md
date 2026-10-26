@@ -15,7 +15,11 @@
 
 ---
 
-A scroll-snapping portfolio with **deep black** sections, except for About and Contact, which use the selected palette's deep accent colour. The corner palette selector (Burgundy, Blue, Green, Violet, Gold, Mono) remains available and changes the accent colours. Click any card to expand it. Blog posts share the main site's dark palette and preserve the selected accent colour, with no build step: plain HTML, CSS and JavaScript.
+A scroll-snapping portfolio with **deep black** sections, exceot a few. Click any card to expand it. Blog posts share the main site's dark palette. The site uses plain HTML, CSS and JavaScript, with no build step.
+
+## Deprecated features
+
+The page previously changed colour as you scrolled through sections; that behavior has since been removed. The fonts and card interactions have also changed from earlier versions. Some source comments still describe those previous designs and behaviors, so they may not match the current site.
 
 ## Structure
 

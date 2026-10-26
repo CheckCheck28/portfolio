@@ -40,15 +40,16 @@ var PALS = [
   st.textContent = `
   /* Let page content receive pointer events outside the visible palette controls. */
   .pal{position:fixed;left:22px;bottom:22px;z-index:60;display:flex;flex-direction:column;align-items:flex-start;gap:10px;pointer-events:none}
+  @media(max-width:520px){.pal{left:14px;top:calc(72px + env(safe-area-inset-top,0px));bottom:auto;flex-direction:column-reverse}}
 
   /* The button: a 44px circle that stretches into a pill on hover to reveal its label */
   .pal-btn{box-sizing:border-box;display:flex;align-items:center;gap:10px;height:44px;max-width:44px;padding:0 11px;border-radius:99px;pointer-events:auto;
     border:1px solid var(--line);background:var(--card);backdrop-filter:blur(12px);color:var(--fg);cursor:pointer;overflow:hidden;opacity:.8;
     font:400 12px var(--sans,sans-serif);letter-spacing:.1em;white-space:nowrap;
     transition:max-width .5s cubic-bezier(.2,.8,.2,1),opacity .3s}
-  .pal-btn:hover,.pal-btn:focus-visible,.pal.open .pal-btn{max-width:230px;opacity:1}
+  .pal-btn:hover,.pal-btn:focus-visible,.pal.open .pal-btn,.pal.hint .pal-btn{max-width:230px;opacity:1}
   .pal-btn span{opacity:0;transition:opacity .3s .1s}                                    /* the label is hidden until hover */
-  .pal-btn:hover span,.pal-btn:focus-visible span,.pal.open .pal-btn span{opacity:1}
+  .pal-btn:hover span,.pal-btn:focus-visible span,.pal.open .pal-btn span,.pal.hint .pal-btn span{opacity:1}
 
   /* Colour swatch: a plain circle in the palette's own colour */
   .pal-btn i,.pal-opt i{flex:none;border-radius:50%;background:var(--c,var(--p1));box-shadow:0 0 0 1px rgba(127,127,127,.4)}
@@ -62,6 +63,7 @@ var PALS = [
     clip-path:inset(100% 0 0 0 round 18px);opacity:0;pointer-events:none;
     transition:clip-path .55s cubic-bezier(.2,.8,.2,1),opacity .3s}
   .pal.open .pal-menu{clip-path:inset(0 0 0 0 round 18px);opacity:1;pointer-events:auto}
+  @media(max-width:520px){.pal-menu{clip-path:inset(0 0 100% 0 round 18px)}.pal.open .pal-menu{clip-path:inset(0 0 0 0 round 18px)}}
 
   /* The scrolling part: about four and a half rows tall, so the half row hints that there is more.
      Its scrollbar is hidden; the arrows below scroll it instead. */
@@ -108,6 +110,76 @@ var PALS = [
 
   function valid(id){ return PALS.some(function(p){ return p[0] === id; }); }              // is it one of the palettes above?
   function saved(){ try { return localStorage.getItem('palette'); } catch(e){ return null; } }
+
+  /* ---------- One-time palette reminder ---------- */
+  var reminderKey = 'palette-reminder-seen', reminderTimer, reminderHandled = false,
+      reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;              // don't animate the reminder for motion-sensitive visitors
+
+  function savedReminder(){ try { return localStorage.getItem(reminderKey); } catch(e){ return null; } }
+  function markReminderHandled(){
+    reminderHandled = true;
+    try { localStorage.setItem(reminderKey, '1'); } catch(e){}                          // remember across visits when storage is available
+  }
+  function cancelReminder(){
+    if (reminderHandled) return;
+    clearTimeout(reminderTimer);
+    w.classList.remove('hint');                                                         // removing the class uses the pill's normal collapse transition
+    markReminderHandled();
+  }
+  function showReminder(){
+    if (reminderHandled) return;
+    if (document.querySelector('.card.x')) return cancelReminder();                     // avoid competing with an expanded card
+    markReminderHandled();
+    w.classList.add('hint');
+    setTimeout(function(){ w.classList.remove('hint'); }, 4000);                         // collapse with the button's normal transition
+  }
+  function afterLoader(){
+    if (reminderHandled || reminderTimer) return;
+    reminderTimer = setTimeout(showReminder, 1500);                                     // let the page settle after the loader exits
+  }
+
+  if (!reduceMotion && savedReminder() !== '1'){                                        // only schedule the first-visit reminder
+    btn.addEventListener('pointerenter', cancelReminder, {once:true});
+    document.addEventListener('pointerdown', cancelReminder, {once:true, capture:true});
+    document.addEventListener('keydown', cancelReminder, {once:true, capture:true});
+    document.addEventListener('click', cancelReminder, {once:true, capture:true});
+    var wheelDelta = 0, wheelAt = 0;
+    addEventListener('wheel', function(e){
+      var now = Date.now();
+      if (now - wheelAt > 200){ wheelDelta = 0; wheelAt = now; }                        // accumulate only a short burst of wheel movement
+      wheelDelta += e.deltaY;
+      if (Math.abs(wheelDelta) > 18) cancelReminder();                                  // cancel on intentional scrolling
+    }, {passive:true});
+    var touchY = 0, touchAt = 0;
+    addEventListener('touchstart', function(e){
+      touchY = e.touches[0].clientY;
+      touchAt = Date.now();
+    }, {passive:true});
+    addEventListener('touchmove', function(e){
+      if (Math.abs(e.touches[0].clientY - touchY) > 12 && Date.now() - touchAt < 250) cancelReminder(); // cancel for a quick swipe
+    }, {passive:true});
+
+    var loader = document.getElementById('loader'), loaderObserver, loaderWaitFinished = false;
+    function loaderGone(){
+      if (loaderWaitFinished) return;
+      loaderWaitFinished = true;
+      if (loaderObserver) loaderObserver.disconnect();
+      if (loader) loader.removeEventListener('transitionend', onLoaderTransition);
+      afterLoader();
+    }
+    function onLoaderTransition(e){
+      if (e.target === loader && e.propertyName === 'transform') loaderGone();
+    }
+    if (!loader || getComputedStyle(loader).display === 'none') afterLoader();            // loader already skipped or absent
+    else if (loader.classList.contains('done')) setTimeout(loaderGone, 1000);             // allow an in-progress exit animation to finish
+    else {
+      loader.addEventListener('transitionend', onLoaderTransition);
+      loaderObserver = new MutationObserver(function(){
+        if (loader.classList.contains('done')) setTimeout(loaderGone, 1000);
+      });
+      loaderObserver.observe(loader, {attributes:true, attributeFilter:['class']});
+    }
+  }
 
   /* ---------- Scroll arrows ---------- */
   function arrows(){                                                                       // grey out an arrow when its end is reached
