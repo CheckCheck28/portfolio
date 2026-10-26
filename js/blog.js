@@ -1,30 +1,14 @@
 /* =====================================================================
    blog.js — tiny script shared by every blog page.
-   1. dark / light switch (remembers your choice)
-   2. reading-progress bar
-   3. table of contents + heading links     5. read time, share buttons
-   4. copy buttons on code blocks           6. back-to-top button
+   1. reading-progress bar        4. read time, share buttons
+   2. table of contents + links   5. back-to-top button
+   3. code-copy buttons
    ===================================================================== */
 
-/* ---------- 1. DARK / LIGHT SWITCH ----------
-   The page's colours come from <html data-theme="dark|light"> (see blog.css).
-   The saved choice is applied by a one-line script in each page's <head> so there is no flash;
-   here we only handle clicking the switch. */
 /* tint(): colour the phone's browser bar like the page background */
 function tint(){ var m = document.querySelector('meta[name="theme-color"]'); if (m) m.content = getComputedStyle(document.documentElement).getPropertyValue('--bg').trim(); }
-var sw = document.getElementById('sw');
-function setTheme(t){
-  document.documentElement.dataset.theme = t;           // switches all colours via CSS
-  sw.setAttribute('aria-checked', t === 'light');       // tells screen readers the switch state
-  try { localStorage.setItem('theme', t); } catch(e){}  // remember the choice for next visit (ignored if storage is blocked)
-  tint();                                               // update the phone browser-bar colour
-}
-sw.addEventListener('click', function(){
-  setTheme(document.documentElement.dataset.theme === 'light' ? 'dark' : 'light');
-});
-sw.setAttribute('aria-checked', document.documentElement.dataset.theme === 'light'); // initial state
 
-/* ---------- 2. READING PROGRESS BAR ---------- */
+/* ---------- 1. READING PROGRESS BAR ---------- */
 var pr = document.getElementById('progress');
 function progress(){
   var h = document.documentElement.scrollHeight - innerHeight;   // total scrollable distance
@@ -33,7 +17,7 @@ function progress(){
 addEventListener('scroll', progress, {passive:true}); progress();
 
 
-/* ---------- 3. TABLE OF CONTENTS + HEADING LINKS ----------
+/* ---------- 2. TABLE OF CONTENTS + HEADING LINKS ----------
    Every <h2> inside the article gets an id and a small "#" link, and a contents list is built from them.
    You never write the list by hand: add or rename an <h2> and it updates itself. */
 var art = document.querySelector('article'), heads = [].slice.call(art.querySelectorAll('h2'));
@@ -56,7 +40,7 @@ if (heads.length > 1){
   heads.forEach(function(h){ spy.observe(h); });
 }
 
-/* ---------- 4. COPY BUTTONS ON CODE BLOCKS ---------- */
+/* ---------- 3. COPY BUTTONS ON CODE BLOCKS ---------- */
 [].slice.call(document.querySelectorAll('pre')).forEach(function(pre){
   var b = document.createElement('button'); b.className = 'copy'; b.type = 'button'; b.textContent = 'Copy';
   b.onclick = function(){
@@ -67,7 +51,7 @@ if (heads.length > 1){
   pre.appendChild(b);
 });
 
-/* ---------- 5. READ TIME + SHARE BUTTONS ---------- */
+/* ---------- 4. READ TIME + SHARE BUTTONS ---------- */
 var words = art.innerText.trim().split(/\s+/).length;                  // count the words in the article
 document.getElementById('rt').textContent = Math.max(1, Math.round(words / 200)) + ' min read'; // ~200 words per minute
 var pageUrl = location.href.split('#')[0], pageTitle = document.querySelector('h1').textContent;
@@ -80,7 +64,7 @@ cl.onclick = function(){
   setTimeout(function(){ cl.textContent = 'Copy link'; }, 1600);
 };
 
-/* ---------- 6. BACK-TO-TOP BUTTON ---------- */
+/* ---------- 5. BACK-TO-TOP BUTTON ---------- */
 var topBtn = document.getElementById('top');
 addEventListener('scroll', function(){ topBtn.classList.toggle('show', scrollY > 700); }, {passive:true}); // show after scrolling down
 topBtn.onclick = function(){ scrollTo({top:0, behavior:'smooth'}); };
