@@ -161,11 +161,11 @@ section{min-height:100svh;scroll-snap-align:start;padding:100px 7vw 60px;display
 
 
 /* ===== 8. CARDS AND GRID ===== */
-.grid{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}   /* as many columns as fit */
+.grid{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr))}   /* as many columns as fit without forcing overflow on phones */
 .grid:not(.all) .card.extra{display:none}                        /* cards beyond SITE.limit stay hidden until "Show all" */
 .showmore{align-self:center;margin-top:26px}
 .card{
-  position:relative;overflow:hidden;padding:24px;border-radius:20px;
+  position:relative;min-width:0;overflow:hidden;padding:24px;border-radius:20px;
   background:var(--card);border:1px solid var(--line);backdrop-filter:blur(8px);
   transition:border-color .3s,box-shadow .3s,background .8s,color .3s,transform .3s}
 .card:not(.x):hover,.card:not(.x):focus-visible{border-color:var(--acc);color:var(--acc);transform:translateY(-3px)} /* Match the hero social buttons: accent and lift on hover or keyboard focus. */
@@ -174,6 +174,7 @@ section{min-height:100svh;scroll-snap-align:start;padding:100px 7vw 60px;display
 .card[data-x]::after{content:"↗ expand";position:absolute;right:18px;bottom:14px;font-size:11px;color:var(--acc);opacity:0;transition:.3s}
 .card[data-x]:hover::after{opacity:1}                            /* the "expand" hint appears on hover */
 .card h3{font-size:25px;line-height:1.2;margin-bottom:4px}
+.card h3,.card .s,.card p,.chip,.dd span{overflow-wrap:anywhere}
 .card .s,.card h3{transition:padding-right .5s,font-size .5s,color .8s}   /* these resize smoothly when a card expands */
 .card:not(.x) h3{transition:padding-right .5s,font-size .5s,color .8s} /* Keep the regular card title color transition at .8s. */
 .card .s{color:var(--acc);font-size:13px;margin-bottom:8px}      /* subtitle line */
@@ -206,7 +207,11 @@ section{min-height:100svh;scroll-snap-align:start;padding:100px 7vw 60px;display
 .dd{display:grid;grid-template-columns:140px 1fr;gap:14px;padding:11px 0;border-top:1px solid var(--line)}
 .dd b{padding-top:2px;color:var(--acc);font-size:11.5px;font-weight:500;letter-spacing:.22em;text-transform:uppercase}
 .dd span{color:var(--fg);font-size:14px}
-@media(max-width:520px){.dd{grid-template-columns:1fr;gap:2px}}   /* phones: label above the text */
+@media(max-width:520px){
+  .dd{grid-template-columns:minmax(0,1fr);gap:2px}
+  .card.x .corner{position:relative;top:auto;right:auto;justify-content:flex-end;margin-bottom:12px}
+  .card.x:not(.closing) .s,.card.x:not(.closing) h3{padding-right:0}
+}   /* phones: label above the text, with corner controls above the expanded card content */
 
 /* Corner image: a semi-transparent picture that slides in at the bottom-right while a card is open.
    Shown exactly as it is (no border, no tint, original proportions). It exists only if the card has an
