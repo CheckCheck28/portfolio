@@ -158,7 +158,7 @@ function openCard(src){
   /* place(x) sets the clone's position and size from a {left, top, width, height} box */
   function place(x){ c.style.left=x.left+'px'; c.style.top=x.top+'px'; c.style.width=x.width+'px'; c.style.height=x.height+'px'; }
 
-  c.style.cssText = 'transition-delay:0s;overflow:hidden'; place(r);     // start exactly on top of the original
+  c.style.cssText = 'transition:none;transition-delay:0s;overflow:hidden'; place(r); // position over the original without animating
   o.appendChild(c); document.body.appendChild(o);
   src.style.visibility = 'hidden';                                       // hide the original so it doesn't show twice
   document.documentElement.style.overflow = 'hidden';                    // lock page scroll while open
@@ -190,9 +190,10 @@ function openCard(src){
 
   requestAnimationFrame(function(){
     var w = Math.min(680, innerWidth*.92);                               // final width
-    c.style.width = w+'px'; c.style.height = 'auto';                     // measure natural height at that width
+    c.style.width = w+'px'; c.style.height = 'auto';                     // measure natural height before the open animation
     var H = Math.min(c.offsetHeight, innerHeight*.86);
     place(r); c.offsetHeight;                                            // snap back to start (offsetHeight forces the browser to apply it)
+    c.style.transition = '';                                             // enable transitions only after measuring the natural height
     o.classList.add('on');
     place({left:(innerWidth-w)/2, top:Math.max(20,(innerHeight-H)/2), width:w, height:H}); // animate to the centre
     setTimeout(function(){ c.style.overflow = 'auto'; var xb = c.querySelector('.xb'); if (xb) xb.focus({preventScroll:true}); }, 520); // after the animation: allow scrolling inside tall cards, focus the × for keyboard users
