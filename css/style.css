@@ -76,6 +76,10 @@ h2 em{color:var(--pri);text-shadow:0 0 12px rgba(var(--nn),.3);transition:color 
 .ring.b{width:96px;height:96px;border-top-color:#d3cdd0;animation-direction:reverse;animation-duration:1.5s} /* inner ring spins the other way */
 @keyframes sp{to{transform:rotate(360deg)}}
 #lt{position:absolute;bottom:18vh;color:#b9b3b6;letter-spacing:.4em;font-size:12px}
+/* Keep the desktop hint out of the loading layout except on phone-sized screens. */
+#mobile-tip{display:none}
+/* Place the hint just above the existing loader label on phones. */
+@media(max-width:520px){#mobile-tip{display:block;position:absolute;bottom:calc(18vh + 30px);width:100%;padding:0 20px;color:#b9b3b6;font-size:12px;letter-spacing:.12em;text-align:center}}
 
 
 /* ===== 4. NAVIGATION, BUTTONS, SCROLL HINT ===== */
