@@ -1,5 +1,5 @@
 /* =====================================================================
-   palette.js — the colour-palette switcher in the bottom-left corner.
+   palette.js — the colour-palette switcher, shown beside the name in the main-page mobile nav.
    Used by the main page, every blog post and the 404 page.
 
    What the visitor sees
@@ -102,7 +102,14 @@ var PALS = [
       '<button class="pal-arrow down" type="button" aria-label="Scroll palettes down"></button>' +
     '</div>' +
     '<button class="pal-btn" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="Change palette"><i></i><span>Change palette :)</span></button>';
-  document.body.appendChild(w);
+  var brandGroup = document.querySelector('.brand-group'),
+      mobileQuery = matchMedia('(max-width:520px)');
+  function positionWidget(){
+    var parent = brandGroup && mobileQuery.matches ? brandGroup : document.body;
+    if (w.parentNode !== parent) parent.appendChild(w);
+  }
+  positionWidget();
+  if (brandGroup) addEventListener('resize', positionWidget);
 
   var btn = w.querySelector('.pal-btn'), sc = w.querySelector('.pal-scroll'),
       up = w.querySelector('.pal-arrow.up'), down = w.querySelector('.pal-arrow.down'),

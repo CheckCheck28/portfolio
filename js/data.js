@@ -23,7 +23,7 @@ var SITE = {
   limit: 4,                                    // cards each section shows before a "Show all" button appears
   email: 'architpasayat28@gmail.com',                     // shown in the contact section; the contact form sends here
   cv: 'assets/cv.pdf',                         // file the Download CV button opens (put your CV in assets/)
-  formspree: '',                               // optional, e.g. 'https://formspree.io/f/xxxxxxx'. Empty = the form opens the visitor's mail app
+  formspree: 'https://formspree.io/f/xoeeewjo',                               // optional, e.g. 'https://formspree.io/f/xxxxxxx'. Empty = the form opens the visitor's mail app
   links: [                                      // social buttons shown in the hero and the contact section: ['Label', 'URL']
     ['LinkedIn','https://www.linkedin.com/in/archit-pasayat857'],
     ['GitHub','https://github.com/CheckCheck28'],

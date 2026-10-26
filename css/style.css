@@ -86,6 +86,7 @@ nav{
   width:min(1120px,94vw);min-width:0;display:flex;justify-content:space-between;align-items:center;gap:48px;
   padding:8px 10px 8px 28px;border-radius:99px;
   background:var(--card);backdrop-filter:blur(16px);border:1px solid var(--line);transition:background .8s,border-color .8s} /* use the theme's original navigation surface */
+nav .brand-group{display:flex;align-items:center;gap:8px}
 nav .brand{font:700 clamp(17px,5vw,23px) var(--serif);letter-spacing:-.035em;color:var(--fg);white-space:nowrap}  /* match the navigation name to the site's restored heading font */
 nav .links{display:flex;align-items:center;gap:4px;min-width:0}
 /* Keep section links quiet until hover or scroll-state gives them a soft accent outline. */
@@ -102,6 +103,14 @@ nav a.l.on{color:var(--acc);background:rgba(var(--nn),.1);border-color:rgba(var(
 nav a:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
 @media(max-width:900px){nav a.l{display:none}nav{gap:16px;padding-left:20px}}   /* tablets and phones: keep only the name and button */
 @media(max-width:520px){nav{gap:12px;padding-left:16px}nav .btn{padding:7px 10px;letter-spacing:.12em}}
+@media(max-width:520px){
+  nav .brand-group .pal{position:relative;left:auto;top:auto;bottom:auto;align-items:flex-start;width:36px;flex:none}
+  nav .brand-group .pal-menu{position:absolute;top:calc(100% + 10px);left:0}
+  nav .brand-group .pal-btn,nav .brand-group .pal-btn:hover,nav .brand-group .pal-btn:focus-visible,
+  nav .brand-group .pal.open .pal-btn,nav .brand-group .pal.hint .pal-btn{height:36px;max-width:36px;padding:0 8px}
+  nav .brand-group .pal-btn span{display:none}
+  nav .brand-group .pal-btn i{width:18px;height:18px}
+}
 
 .btn{
   display:inline-block;padding:11px 24px;border-radius:99px;border:0;cursor:pointer;
