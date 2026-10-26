@@ -1,5 +1,5 @@
 /* =====================================================================
-   palette.js — the colour-palette switcher, shown beside the name in the main-page mobile nav.
+   palette.js — the colour-palette switcher in the bottom-left corner.
    Used by the main page, every blog post and the 404 page.
 
    What the visitor sees
@@ -40,7 +40,6 @@ var PALS = [
   st.textContent = `
   /* Let page content receive pointer events outside the visible palette controls. */
   .pal{position:fixed;left:22px;bottom:22px;z-index:60;display:flex;flex-direction:column;align-items:flex-start;gap:10px;pointer-events:none}
-  @media(max-width:520px){.pal{left:14px;top:calc(72px + env(safe-area-inset-top,0px));bottom:auto;flex-direction:column-reverse}}
 
   /* The button: a 44px circle that stretches into a pill on hover to reveal its label */
   .pal-btn{box-sizing:border-box;display:flex;align-items:center;gap:10px;height:44px;max-width:44px;padding:0 11px;border-radius:99px;pointer-events:auto;
@@ -102,14 +101,7 @@ var PALS = [
       '<button class="pal-arrow down" type="button" aria-label="Scroll palettes down"></button>' +
     '</div>' +
     '<button class="pal-btn" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="Change palette"><i></i><span>Change palette :)</span></button>';
-  var brandGroup = document.querySelector('.brand-group'),
-      mobileQuery = matchMedia('(max-width:520px)');
-  function positionWidget(){
-    var parent = brandGroup && mobileQuery.matches ? brandGroup : document.body;
-    if (w.parentNode !== parent) parent.appendChild(w);
-  }
-  positionWidget();
-  if (brandGroup) addEventListener('resize', positionWidget);
+  document.body.appendChild(w);
 
   var btn = w.querySelector('.pal-btn'), sc = w.querySelector('.pal-scroll'),
       up = w.querySelector('.pal-arrow.up'), down = w.querySelector('.pal-arrow.down'),
